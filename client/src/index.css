@@ -2,7 +2,7 @@ main{
     min-height: 80vh;
     font-family: hypatia-sans-pro, sans-serif;
     font-style: normal;
-    font-weight: 200;
+    /* font-weight: 200; */
     text-transform: capitalize;
 }
 a {
@@ -18,7 +18,7 @@ a {
 .product a:hover{
     color: #424242
 }
-.product {
+/* .product {
     height: 400px;
-}
+} */
 
