@@ -21,7 +21,7 @@ export default function Header() {
 
     return (
         <div className={classes.root} >
-            <AppBar position="static" style={{ 'background-color': '#282828' }} className='header' >
+            <AppBar position="static" style={{ backgroundColor: '#282828' }} className='header' >
                 <Container>
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>PROSTORE</Typography>

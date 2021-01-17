@@ -1,9 +1,9 @@
-import { Button, Card, CardMedia, Divider, Grid, List, ListItem, ListItemText, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Button, Card, CardMedia, CircularProgress, Divider, Grid, List, ListItem, makeStyles } from '@material-ui/core'
+
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating';
-import products from '../products'
-
+import axios from 'axios'
 const useStyles = makeStyles(() => ({
 
     image: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 
     },
     btndis: {
-
+        background: '#E0E0E0'
     }
 }
 ));
@@ -31,18 +31,26 @@ const useStyles = makeStyles(() => ({
 const ProductScreen = (props) => {
     const { match } = props
     const classes = useStyles();
-    const product = products.find(p => p._id === match.params.id)
+    const [product, setProduct] = useState([])
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const { data } = await axios.get(`/api/products/${match.params.id}`)
+            setProduct(data)
+        }
+        fetchProduct()
+    }, [match])
     return (
         <>
             <Link to='/'><Button>Go Back</Button></Link>
 
             <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
-                <Grid item direction='column' md={6}>
-                    <CardMedia className={classes.image} image={product.image} />
+                <Grid item md={6}>
+                    {product.image ? <CardMedia className={classes.image} image={product.image} /> : <CircularProgress />}
+
                 </Grid>
-                <Grid item direction='column' md={3}>
+                <Grid item md={3}>
                     <List>
-                        <ListItem><h3>{product.name.toUpperCase()}</h3></ListItem>
+                        <ListItem><h3>{product.name}</h3></ListItem>
                         <Divider />
                         <ListItem>
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
@@ -58,28 +66,35 @@ const ProductScreen = (props) => {
                         </ListItem>
                     </List>
                 </Grid>
-                <Grid item direction='column' md={3}>
+                <Grid item md={3}>
                     <Card>
                         <List >
                             <ListItem>
-                                <Grid item>Price:</Grid>
-                                <Grid item><strong>${product.price}</strong></Grid>
+                                <Grid container direction='row' justify='space-between' alignItems='center'>
+                                    <Grid item xs>Price:</Grid>
+                                    <Grid item xs><strong>${product.price}</strong></Grid>
+                                </Grid>
                             </ListItem>
+                            <Divider />
                             <ListItem>
-                                <Grid item>Status:</Grid>
-                                <Grid item>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Grid>
+                                <Grid container direction='row' justify='space-between' alignItems='center'>
+                                    <Grid item xs>Status:</Grid>
+                                    <Grid item xs>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Grid>
+                                </Grid>
                             </ListItem>
+                            <Divider />
                             <ListItem>
-                                <Button disabled={product.countInStock === 0} className={classes.button}>Add to cart</Button>
+                                <Button
+                                    fullWidth
+                                    disabled={product.countInStock === 0}
+                                    className={product.countInStock > 0 ? classes.button : classes.btndis}
+                                >
+                                    Add to cart</Button>
                             </ListItem>
-
                         </List>
-
                     </Card>
                 </Grid>
             </Grid>
-
-
         </>
     )
 }

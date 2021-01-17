@@ -4,7 +4,6 @@ import Rating from './Rating';
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(() => ({
-
     image: {
         height: 0,
         paddingTop: '80%'
