@@ -7,7 +7,7 @@ const HomeScreen = () => {
     return (
         <>
             <h1>LATEST PRODUCTS</h1>
-            <Grid container direction="row">
+            <Grid container direction="row" spacing={2} styles={{ flexGrow: 1 }} >
                 {products.map((product) => (
                     <Grid item xs={3}>
                         <Product product={product}></Product>

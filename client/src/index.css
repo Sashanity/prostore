@@ -5,3 +5,20 @@ main{
     font-weight: 200;
     text-transform: capitalize;
 }
+a {
+    color:#969696;
+    text-decoration: none;
+  }
+.header a:hover {
+     color: #FFF
+  }
+.rating span {
+    margin: 0.1rem;
+}
+.product a:hover{
+    color: #424242
+}
+.product {
+    height: 400px;
+}
+

@@ -11,7 +11,7 @@ function App() {
       <Header />
       <main>
         <Container>
-          <HomeScreen />
+          <Route path='/' component={HomeScreen} exact />
         </Container>
       </main>
       <Footer />
