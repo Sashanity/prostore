@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Card, CardActionArea, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core'
 import Rating from './Rating';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(() => ({
 
@@ -18,14 +19,14 @@ const Product = (props) => {
         <Box my={3} p={3} >
             <Card className='product'>
                 <CardActionArea >
-                    <a href={`product/${product._id}`}>
+                    <Link to={`product/${product._id}`}>
                         <CardMedia className={classes.image} image={product.image} />
-                    </a>
+                    </Link>
                     <CardContent>
-                        <a href={`product/${product._id}`}>
+                        <Link to={`product/${product._id}`}>
                             {/* <CardHeader subheader={product.name} /> */}
                             <Typography >{product.name}</Typography>
-                        </a>
+                        </Link>
                         <Box my={3}>
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                         </Box>
