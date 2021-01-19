@@ -1,11 +1,12 @@
 // in node 14.9(6)+, it is opssible to import as ES modules 
 import express from 'express'
 import dotenv from 'dotenv'
+import connectDB from './config/db_config.js'
 import products from './data/products.js'
 
 //load config file
 dotenv.config()
-
+connectDB()
 const app = express()
 
 
