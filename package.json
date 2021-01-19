@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node backend/server.js",
+    "server-deps": "npm i",
+    "client-deps": "npm i --prefix client",
+    "install-all-deps": "concurrently \"npm run server-deps\" \"npm run client-deps\"",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
