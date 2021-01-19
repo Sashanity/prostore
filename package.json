@@ -1,0 +1,36 @@
+{
+  "name": "prostore",
+  "version": "1.0.0",
+  "description": "MERN shopping app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/util/seeder",
+    "data:destroy": "node backend/util/seeder -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sashanity/prostore.git"
+  },
+  "author": "Aleksandra Khovina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sashanity/prostore/issues"
+  },
+  "homepage": "https://github.com/Sashanity/prostore#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.11.12"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.7"
+  }
+}
