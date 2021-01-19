@@ -1,3 +1,5 @@
+//This file is entry point for server
+
 // in node 14.9(6)+, it is opssible to import as ES modules 
 import express from 'express'
 import dotenv from 'dotenv'
