@@ -101,6 +101,6 @@ const orderSchema = mongoose.Schema(
 )
 
 // create user model using the schema above
-const Order = mongoose.model('Order', userSchema)
+const Order = mongoose.model('Order', orderSchema)
 
 export default Order
