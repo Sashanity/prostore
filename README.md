@@ -14,7 +14,7 @@ $ git clone https://github.com/Sashanity/prostore.git
 cd prostore
 
 # install required node modules
-$ npm install-all-deps
+$ npm run install-all-deps
  
 # start server and client locally
 $ npm run dev
