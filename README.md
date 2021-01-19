@@ -8,14 +8,20 @@
 ## Run
 
 ``` sh
-# start server and client locally
-$ node run dev
+# clone this repo 
+$ git clone https://github.com/Sashanity/prostore.git
+# enter the project directory
+cd prostore
 
+# start server and client locally
+$ npm run dev
+
+# optionally
 # start server separatly in local env
-$ node run server
+$ npm run server
 
 # start client separatly  in local env
-$ node run client
+$ npm run client
 ```
 
 ## Credits
