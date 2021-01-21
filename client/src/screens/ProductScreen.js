@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 const ProductScreen = (props) => {
     const { match, history } = props
     const classes = useStyles();
-    const [qty, setQty] = useState();
+    const [qty, setQty] = useState('');
 
 
     // const [product, setProduct] = useState([])
@@ -126,12 +126,10 @@ const ProductScreen = (props) => {
                                                         >
                                                             {
                                                                 [...Array(product.countInStock).keys()].map(c => (
-                                                                    <MenuItem value={c + 1}>{c + 1}</MenuItem>
-                                                                    // <option key={c + 1} value={c + 1}>{c + 1}</option>
-                                                                ))
+
+                                                                    <MenuItem key={c + 1} value={c + 1}>{c + 1}</MenuItem>
+                                                                    // <option key={c + 1} value={c + 1}>{c + 1}</option>                                                                ))
                                                             }
-
-
                                                         </Select>
                                                     </FormControl>
                                                 </Grid>
