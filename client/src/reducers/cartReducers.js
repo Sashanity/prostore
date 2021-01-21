@@ -16,7 +16,7 @@ export const cartReducer = (state = { itemsInCart: [] }, action) => {
             }
             else {
                 // if item doesn't exist in the cart, add itme to the cart itemsInCart array
-                return { ...state, itemsInCart: state.itemsInCart, item }
+                return { ...state, itemsInCart: [...state.itemsInCart, item] }
             }
 
         default:
