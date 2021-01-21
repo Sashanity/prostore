@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Grid, CircularProgress } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import Product from '../components/Product'
 import { getProducts } from '../actions/productActions'
 import Progress from '../components/Progress'
+import AlertMessage from '../components/AlertMessage'
 
 
 const HomeScreen = () => {
@@ -31,7 +32,7 @@ const HomeScreen = () => {
             {loading
                 ? <Progress marginTop={'20%'} />
                 : error
-                    ? <h3>{error}</h3>
+                    ? <AlertMessage sev={'error'} errMsg={error} />
                     : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
                         {products.map((product) => (
                             <Grid key={product._id} item xs={12} md={6} lg={3}>
@@ -40,7 +41,6 @@ const HomeScreen = () => {
                         ))}
                     </Grid>
             }
-
         </>
     )
 }
