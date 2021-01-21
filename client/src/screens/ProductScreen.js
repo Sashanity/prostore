@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardMedia, CircularProgress, Divider, Grid, List, ListItem, makeStyles } from '@material-ui/core'
+import { Button, Card, CardMedia, Divider, Grid, List, ListItem, makeStyles } from '@material-ui/core'
 
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating';
 import axios from 'axios'
+import Progress from '../components/Progress';
 const useStyles = makeStyles(() => ({
 
     image: {
@@ -50,7 +51,8 @@ const ProductScreen = (props) => {
                 <Grid item md={6}>
                     {product.image
                         ? <CardMedia className={classes.image} image={product.image} />
-                        : <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40%' }}><CircularProgress size={100} thickness={2.5} /> </div>}
+                        : <Progress marginTop={'40%'} />
+                    }
                 </Grid>
                 <Grid item md={3}>
                     <List>

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS } from '../consts/productsConsts'
 
-
 export const getProducts = () => async (dispatch) => {
     try {
         // dispatch ({type, payload})
