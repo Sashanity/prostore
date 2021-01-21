@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from '../consts/cartConsts'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../consts/cartConsts'
 
 export const cartReducer = (state = { itemsInCart: [] }, action) => {
     switch (action.type) {
@@ -17,6 +17,12 @@ export const cartReducer = (state = { itemsInCart: [] }, action) => {
             else {
                 // if item doesn't exist in the cart, add itme to the cart itemsInCart array
                 return { ...state, itemsInCart: [...state.itemsInCart, item] }
+            }
+        case CART_REMOVE_ITEM:
+            return {
+                ...state,
+                // reset array of items in the cart, fildter out the chosen one
+                itemsInCart: state.itemsInCart.filter((i) => i.product !== action.payload)
             }
 
         default:

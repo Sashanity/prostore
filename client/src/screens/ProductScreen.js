@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 const ProductScreen = (props) => {
     const { match, history } = props
     const classes = useStyles();
-    const [qty, setQty] = useState('');
+    const [qty, setQty] = useState(1);
 
 
     // const [product, setProduct] = useState([])
@@ -55,12 +55,13 @@ const ProductScreen = (props) => {
     }, [dispatch, match])
 
     const handleAddToCart = () => {
-        history.push(`/cart/${match.params.id}/qty=${qty}`)
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
     }
 
     const handleChangeQty = (event) => {
         setQty(event.target.value);
-    };
+
+    }
 
     return (
         <>
@@ -68,7 +69,7 @@ const ProductScreen = (props) => {
             {loading
                 ? <Progress marginTop={'20%'} />
                 : error
-                    ? <AlertMessage sev={'error'} errMsg={error} />
+                    ? <AlertMessage sev={'error'}>{error}</AlertMessage>
                     : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
                         <Grid item md={6}>
                             {product.image
@@ -86,7 +87,6 @@ const ProductScreen = (props) => {
                                 <Divider />
                                 <ListItem>
                                     Price: ${product.price}
-
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
@@ -123,6 +123,7 @@ const ProductScreen = (props) => {
                                                             id="select-qty"
                                                             value={qty}
                                                             onChange={handleChangeQty}
+                                                        // onChange={(e) => setQty(e.target.value)}
                                                         >
                                                             {
                                                                 [...Array(product.countInStock).keys()].map(c => (

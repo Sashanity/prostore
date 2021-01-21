@@ -2,7 +2,9 @@ import React from 'react'
 
 import { Alert, AlertTitle } from '@material-ui/lab';
 
-const AlertMessage = ({ sev, errMsg }) => {
+// children is a keyword
+
+const AlertMessage = ({ sev, children }) => {
     return (
 
         <Alert severity={sev}>
@@ -17,7 +19,7 @@ const AlertMessage = ({ sev, errMsg }) => {
                                 ? 'Success'
                                 : ''}
             </AlertTitle>
-            {errMsg}
+            {children}
         </Alert>
     )
 }

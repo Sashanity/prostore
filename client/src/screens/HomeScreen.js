@@ -32,7 +32,7 @@ const HomeScreen = () => {
             {loading
                 ? <Progress marginTop={'20%'} />
                 : error
-                    ? <AlertMessage sev={'error'} errMsg={error} />
+                    ? <AlertMessage sev={'error'}>{error}</AlertMessage>
                     : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
                         {products.map((product) => (
                             <Grid key={product._id} item xs={12} md={6} lg={3}>
