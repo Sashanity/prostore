@@ -128,7 +128,8 @@ const ProductScreen = (props) => {
                                                                 [...Array(product.countInStock).keys()].map(c => (
 
                                                                     <MenuItem key={c + 1} value={c + 1}>{c + 1}</MenuItem>
-                                                                    // <option key={c + 1} value={c + 1}>{c + 1}</option>                                                                ))
+                                                                    // <option key={c + 1} value={c + 1}>{c + 1}</option>
+                                                                ))
                                                             }
                                                         </Select>
                                                     </FormControl>
