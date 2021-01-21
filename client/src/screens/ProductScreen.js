@@ -19,10 +19,13 @@ const useStyles = makeStyles(() => ({
             //you want this to be the same as the backgroundColor above
             backgroundColor: "#424242"
         }
-
     },
     btndis: {
         background: '#E0E0E0'
+    },
+    progress: {
+        margin: 'auto',
+
     }
 }
 ));
@@ -45,8 +48,9 @@ const ProductScreen = (props) => {
 
             <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
                 <Grid item md={6}>
-                    {product.image ? <CardMedia className={classes.image} image={product.image} /> : <CircularProgress />}
-
+                    {product.image
+                        ? <CardMedia className={classes.image} image={product.image} />
+                        : <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40%' }}><CircularProgress size={100} thickness={2.5} /> </div>}
                 </Grid>
                 <Grid item md={3}>
                     <List>
