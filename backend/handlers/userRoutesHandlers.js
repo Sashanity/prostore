@@ -2,6 +2,43 @@ import asyncHandler from 'express-async-handler' // usefult instead of trycatch 
 import User from '../models/userModel.js'
 import { generateToken } from '../util/generateToken.js'
 
+/*
+@desc    Create a new user
+@route   POST /api/users
+@ access Public
+*/
+export const userCreate = asyncHandler(async (req, res) => {
+
+    const { email, password, name } = req.body
+
+    const userExist = await User.findOne({ email })
+    if (userExist) {
+        res.status(400)
+        throw new Error('This email alredy used')
+    }
+    else {
+        const user = await User.create({
+            name,
+            email,
+            password
+
+        })
+        if (user) {
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                token: generateToken(user._id)
+            })
+        }
+        else {
+            res.status(400)
+            throw new Error('Invalid user data')
+        }
+
+    }
+})
 
 /*
 @desc    Authenticate user and get token

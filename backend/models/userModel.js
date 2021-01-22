@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
-import { userCreate } from '../handlers/userRoutesHandlers'
+
 
 const userSchema = mongoose.Schema(
     {
