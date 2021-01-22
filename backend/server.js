@@ -5,6 +5,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db_config.js'
 import productRoutes from './routes/product_routes.js'
+import userRoutes from './routes/userRoutes.js'
 import { notFound, errHandler } from './middleware/err.js'
 
 //load config file
@@ -12,11 +13,15 @@ dotenv.config()
 connectDB()
 const app = express()
 
+// to accept json data (could use cors)
+app.use(express.json());
+
 app.get('/', (req, res) => {
     res.send('Hi, api is runnning :)')
 })
 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(notFound)
 app.use(errHandler)
