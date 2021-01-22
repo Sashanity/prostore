@@ -26,7 +26,7 @@ export default function Header() {
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>PROSTORE</Typography>
                         <Link to='/cart' style={{ marginRight: 10 }}><i className='fas fa-shopping-cart'></i>CART</Link>
-                        <Link to='/login'><i className='fas fa-user'></i>SIGN IN</Link>
+                        <Link to='/signin'><i className='fas fa-user'></i>SIGN IN</Link>
                     </Toolbar>
                 </Container>
             </AppBar>

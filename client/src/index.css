@@ -9,15 +9,17 @@ a {
     color:#969696;
     text-decoration: none;
   }
+  a:hover{
+    color: #424242;
+  }
+  
 .header a:hover {
      color: #FFF
   }
 .rating span {
     margin: 0.1rem;
 }
-.product a:hover{
-    color: #424242
-}
+
 /* .product {
     height: 400px;
 } */
