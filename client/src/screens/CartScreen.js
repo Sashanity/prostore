@@ -54,7 +54,7 @@ const CartScreen = (props) => {
     //     dispatch(addToCart(i.product, Number(event.target.value)))
     // }
     const handleCheckout = () => {
-        history.push('/login?redirect=shipping')
+        history.push('/signin?redirect=shipping')
     }
     const removeFromCartHandler = (itemID) => {
         dispatch(removeFromCart(itemID))
