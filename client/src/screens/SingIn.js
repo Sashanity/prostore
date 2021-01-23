@@ -34,7 +34,7 @@ export default function SignIn(props) {
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     {/* <LockOutlinedIcon /> */}
-                    <i class="fas fa-lock"></i>
+                    <i className="fas fa-lock"></i>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in

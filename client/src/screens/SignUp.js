@@ -13,7 +13,7 @@ export default function SignUp() {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <i class="fas fa-lock"></i>
+                    <i className="fas fa-lock"></i>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
