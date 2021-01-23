@@ -1,12 +1,33 @@
-import React from 'react';
-
-import { Avatar, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+import { Avatar, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core'
 import { useStyles } from '../styles'
+import { loginUser } from '../actions/userActions'
+import AlertMessage from '../components/AlertMessage'
+import Progress from '../components/Progress'
 
-export default function SignIn() {
+export default function SignIn(props) {
+    const { history, location } = props
     const classes = useStyles();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    // redirect to see if user logged in or not
+    const redirect = location.search ? location.search.split('=')[1] : '/'
+    const dispatch = useDispatch()
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo, loading, error } = userLogin
+    useEffect(() => {
+        if (userInfo)
+            history.push(redirect)
+    }, [history, userInfo, redirect])
 
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+        dispatch(loginUser(email, password))
+    }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -17,7 +38,9 @@ export default function SignIn() {
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
-        </Typography>
+                </Typography>
+                {error && <AlertMessage sev={'error'}>{error}</AlertMessage>}
+                {loading && <Progress />}
                 <form className={classes.form} noValidate>
                     <TextField
                         variant="outlined"
@@ -26,9 +49,11 @@ export default function SignIn() {
                         fullWidth
                         id="email"
                         label="Email Address"
+                        placeholder='example@email.com'
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -40,6 +65,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
@@ -49,6 +75,7 @@ export default function SignIn() {
                         type="submit"
                         fullWidth
                         className={classes.button}
+                        onClick={submitHandler}
                     >
                         Sign In
                     </Button>
@@ -60,7 +87,7 @@ export default function SignIn() {
               </Link>
                         </Grid>
                         <Grid item>
-                            <Link to='/signup'>
+                            <Link to={redirect ? `/signup?redirect=${redirect}` : '/signup'}>
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

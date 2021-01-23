@@ -3,7 +3,7 @@ main{
     font-family: hypatia-sans-pro, sans-serif;
     font-style: normal;
     /* font-weight: 200; */
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 a {
     color:#969696;
