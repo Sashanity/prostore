@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Avatar, Button, Container, CssBaseline, Divider, Grid, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, TextField, Typography } from '@material-ui/core'
 
 import { useStyles } from '../styles'
 import { getUserProfile, updateUserProfile } from '../actions/userActions';
 import AlertMessage from '../components/AlertMessage';
 import Progress from '../components/Progress';
+import { USER_PROFILE_UPDATE_RESET } from '../consts/userConsts'
 
 export default function ProfileScreen(props) {
     const { history, location } = props
@@ -19,7 +20,7 @@ export default function ProfileScreen(props) {
     const [confPassword, setConfPassword] = useState('')
     const [msg, setMsg] = useState('')
 
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+
 
     const dispatch = useDispatch()
     const userProfile = useSelector(state => state.userProfile)
@@ -35,8 +36,8 @@ export default function ProfileScreen(props) {
         if (!userInfo)
             history.push('/signin')
         else {
-            if (!user.name) {
-                console.log(user.name)
+            if (!user.name || success) {
+                dispatch({ type: USER_PROFILE_UPDATE_RESET })
                 dispatch(getUserProfile('profile'))
             }
             else {
@@ -44,7 +45,7 @@ export default function ProfileScreen(props) {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, userInfo, user])
+    }, [dispatch, history, userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -54,7 +55,6 @@ export default function ProfileScreen(props) {
 
             dispatch(updateUserProfile({ id: user._id, name, email, password }))
         }
-
     }
 
     return (
