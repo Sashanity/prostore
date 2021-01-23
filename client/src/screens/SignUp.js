@@ -16,15 +16,15 @@ export default function SignUp(props) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    const [name, setName] = useState('')
-
+    const [nameF, setNameF] = useState('')
+    const [nameL, setNameL] = useState('')
     const [confPassword, setConfPassword] = useState('')
     const [msg, setMsg] = useState('')
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     const dispatch = useDispatch()
-    const userSignup = useSelector(state => state.userLogin)
+    const userSignup = useSelector(state => state.userSingup)
     const { userInfo, loading, error } = userSignup
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function SignUp(props) {
         if (password !== confPassword)
             setMsg('Passwords do not match!')
         else {
-
+            let name = nameF + ' ' + nameL
             dispatch(signupUser(name, email, password))
         }
 
@@ -53,6 +53,7 @@ export default function SignUp(props) {
                 <Typography component="h1" variant="h5">
                     Sign up
         </Typography>
+                {msg && <AlertMessage sev={'error'}>{msg}</AlertMessage>}
                 {error && <AlertMessage sev={'error'}>{error}</AlertMessage>}
                 {loading && <Progress />}
 
@@ -66,9 +67,22 @@ export default function SignUp(props) {
                                 required
                                 fullWidth
                                 id="Name"
-                                label=" Name"
+                                label="First Name"
                                 autoFocus
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setNameF(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                autoComplete="lname"
+                                name="lastName"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="Name last"
+                                label=" Last Name"
+                                autoFocus
+                                onChange={(e) => setNameL(e.target.value)}
                             />
                         </Grid>
 
