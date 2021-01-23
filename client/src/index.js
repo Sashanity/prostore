@@ -13,7 +13,7 @@ import { Provider } from 'react-redux'
 const theme = createMuiTheme({
   palette: {
     type: "light",
-  }
+  },
 });
 
 ReactDOM.render(
