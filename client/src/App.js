@@ -8,7 +8,7 @@ import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
 import SignIn from './screens/SingIn'
 import SignUp from './screens/SignUp'
-
+import ProfileScreen from './screens/ProfileScreen'
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
+          <Route path='/profile' component={ProfileScreen} />
         </Container>
       </main>
       <Footer />
