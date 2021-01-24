@@ -12,6 +12,11 @@ a {
   a:hover{
     color: #424242;
   }
+  a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color:#BDBDBD
+  }
   
 .header a:hover {
      color: #FFF

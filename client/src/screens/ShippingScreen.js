@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Container, CssBaseline, TextField, Typography } from '@material-ui/core'
 import { useStyles } from '../styles'
 import { saveShippingAddress } from '../actions/cartActions'
+import CheckoutSteps from '../components/CheckoutSteps'
 
 const ShippingScreen = (props) => {
     const { history } = props
@@ -32,6 +33,8 @@ const ShippingScreen = (props) => {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
+                <CheckoutSteps step1 step2 />
+                <br></br>
                 <Typography component="h3" variant="h5">
                     Shipping
             </Typography>
@@ -97,11 +100,6 @@ const ShippingScreen = (props) => {
                     >
                         Proceed
                 </Button>
-
-
-
-
-
                 </form>
             </div>
 
