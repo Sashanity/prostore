@@ -10,7 +10,7 @@ import Progress from '../components/Progress';
 import { USER_PROFILE_UPDATE_RESET } from '../consts/userConsts'
 
 export default function ProfileScreen(props) {
-    const { history, location } = props
+    const { history } = props
 
     const classes = useStyles();
 

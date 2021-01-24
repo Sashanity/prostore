@@ -6,9 +6,10 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
-import SignIn from './screens/SingIn'
-import SignUp from './screens/SignUp'
+import SignIn from './screens/SingInScreen'
+import SignUp from './screens/SignUpScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import ShippingScreen from './screens/ShippingScreen'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/shipping' component={ShippingScreen} />
         </Container>
       </main>
       <Footer />
