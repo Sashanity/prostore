@@ -25,10 +25,9 @@ const PlaceOrderScreen = (props) => {
     const { order, success, error } = orderCreate
     useEffect(() => {
         if (success) {
-            history.push(`/order/order/${order._id}`)
+            history.push(`/order/${order._id}`)
         }
         // eslint-disable-next-line
-
     }, [history, success])
 
     const dispatch = useDispatch()
