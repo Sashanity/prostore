@@ -32,9 +32,10 @@ const ShippingScreen = (props) => {
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
+            <CheckoutSteps step1 step2 />
+
             <div className={classes.paper}>
-                <CheckoutSteps step1 step2 />
-                <br></br>
+
                 <Typography component="h3" variant="h5">
                     Shipping
             </Typography>

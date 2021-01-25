@@ -33,9 +33,10 @@ const PaymentScreen = (props) => {
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
+            <CheckoutSteps step1 step2 step3 />
             <div className={classes.paper}>
-                <CheckoutSteps step1 step2 step3 />
-                <br></br>
+
+
                 <Typography component="h3" variant="h5">
                     Payment Method
             </Typography>

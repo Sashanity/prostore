@@ -7,7 +7,7 @@ import Rating from '../components/Rating';
 
 import Progress from '../components/Progress';
 import { getProduct } from '../actions/productActions'
-import AlertMessage from '../components/AlertMessage';
+import AlertMessage from '../components/AlertMessage'
 const useStyles = makeStyles(() => ({
 
     image: {

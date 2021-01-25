@@ -2,10 +2,10 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(6),
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -27,5 +27,9 @@ export const useStyles = makeStyles((theme) => ({
             //you want this to be the same as the backgroundColor above
             backgroundColor: "#424242"
         }
+    },
+    image: {
+        height: 0,
+        paddingTop: '80%'
     },
 }));
