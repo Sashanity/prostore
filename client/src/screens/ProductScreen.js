@@ -70,7 +70,7 @@ const ProductScreen = (props) => {
                 ? <Progress marginTop={'20%'} />
                 : error
                     ? <AlertMessage sev={'error'}>{error}</AlertMessage>
-                    : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
+                    : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }}  >
                         <Grid item md={6}>
                             {product.image
                                 ? <CardMedia className={classes.image} image={product.image} />

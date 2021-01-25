@@ -60,7 +60,7 @@ const CartScreen = (props) => {
         dispatch(removeFromCart(itemID))
     }
     return (
-        <Grid container direction='row' spacing={2}>
+        <Grid container direction='row' spacing={2} alignItems="center">
             <Grid item md={8}>
                 <h1> Shopping Cart</h1>
                 {

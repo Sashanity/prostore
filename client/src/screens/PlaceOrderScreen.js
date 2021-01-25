@@ -26,7 +26,7 @@ const PlaceOrderScreen = () => {
         <Container>
             <CssBaseline />
             <CheckoutSteps step1 step2 step3 step4 />
-            <Grid container >
+            <Grid container alignItems="center" spacing={2}>
                 <Grid item md={8}>
                     <h2>Shipping</h2>
                     <p>
