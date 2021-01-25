@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@material-ui/core'
 import { useStyles } from '../styles'
-// import { savePaymentMethod } from '../actions/cartActions'
+import { savePaymentMethod } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 
 const PaymentScreen = (props) => {
@@ -21,14 +21,14 @@ const PaymentScreen = (props) => {
 
     const dispatch = useDispatch()
 
-    // const submitHandler = (e) => {
-    //     e.preventDefault()
-    //     dispatch(savePaymentMethod(paymentMethod))
+    const submitHandler = (e) => {
+        e.preventDefault()
+        dispatch(savePaymentMethod(paymentMethod))
 
-    //     //move to the next page
-    //     history.push('/placeOrder')
+        //move to the next page
+        history.push('/placeOrder')
 
-    // }
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -59,7 +59,7 @@ const PaymentScreen = (props) => {
                         type="submit"
                         fullWidth
                         className={classes.button}
-                    // onClick={submitHandler}
+                        onClick={submitHandler}
                     >
                         Proceed
                 </Button>
