@@ -109,6 +109,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
             user.password = req.body.password
         }
 
+        //save to db
         const updated = await user.save()
         res.json({
             _id: updated._id,

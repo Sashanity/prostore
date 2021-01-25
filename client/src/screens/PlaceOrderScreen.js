@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AlertMessage from '../components/AlertMessage'
 import { Link } from 'react-router-dom'
@@ -6,8 +6,10 @@ import { Box, Button, Card, CardMedia, Container, CssBaseline, Divider, Grid, Li
 
 import CheckoutSteps from '../components/CheckoutSteps'
 import { useStyles } from '../styles'
+import { createOrder } from '../actions/orderActions'
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = (props) => {
+    const { history } = props
     const classes = useStyles()
     const cart = useSelector(state => state.cart)
     const { shippingAddress, paymentMethod, itemsInCart } = cart
@@ -18,9 +20,30 @@ const PlaceOrderScreen = () => {
     cart.taxPrice = Number((0.09 * cart.itemsPrice).toFixed(2))
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
+    // bring it from the state
+    const orderCreate = useSelector(state => state.orderCreate)
+    const { order, success, error } = orderCreate
+    useEffect(() => {
+        if (success) {
+            history.push(`/order/order/${order._id}`)
+        }
+        // eslint-disable-next-line
+
+    }, [history, success])
+
+    const dispatch = useDispatch()
     const placeOrderHandler = () => {
-        // e.preventDefault()
-        console.log('place order')
+
+        dispatch(createOrder({
+            orderItems: cart.itemsInCart,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice
+        }))
+
     }
     return (
         <Container>
@@ -96,6 +119,9 @@ const PlaceOrderScreen = () => {
                                     <Grid item xs>Total</Grid>
                                     <Grid item xs>${cart.totalPrice}</Grid>
                                 </Grid>
+                            </ListItem>
+                            <ListItem>
+                                {error && <AlertMessage sev={'error'}>{error}</AlertMessage>}
                             </ListItem>
                             <ListItem>
                                 <Button
