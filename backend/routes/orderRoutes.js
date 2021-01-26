@@ -5,7 +5,7 @@ import { createOrder, getOrder, updateOrderToPaid, getMyOrders } from '../handle
 const router = express.Router()
 
 router.route('/').post(auth, createOrder)
-router.route('/myorders').post(auth, getMyOrders)
+router.route('/myorders').get(auth, getMyOrders)
 router.route('/:id').get(auth, getOrder)
 router.route('/:id/pay').put(auth, updateOrderToPaid)
 

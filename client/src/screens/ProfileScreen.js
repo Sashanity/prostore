@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Button, Grid, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core'
 
 import { useStyles } from '../styles'
 import { getUserProfile, updateUserProfile } from '../actions/userActions'
 import { getMyOrders } from '../actions/orderActions'
+import { Link } from 'react-router-dom'
 import AlertMessage from '../components/AlertMessage'
 import Progress from '../components/Progress'
 import { USER_PROFILE_UPDATE_RESET } from '../consts/userConsts'
@@ -33,6 +34,9 @@ export default function ProfileScreen(props) {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
+    const orderList = useSelector(state => state.orderList)
+    const { orders, loading: loadingListOrders, error: errorListOrders } = orderList
+
     useEffect(() => {
         if (!userInfo)
             history.push('/signin')
@@ -40,6 +44,7 @@ export default function ProfileScreen(props) {
             if (!user.name || success) {
                 dispatch({ type: USER_PROFILE_UPDATE_RESET })
                 dispatch(getUserProfile('profile'))
+                dispatch(getMyOrders())
             }
             else {
                 setName(user.name)
@@ -59,7 +64,7 @@ export default function ProfileScreen(props) {
     }
 
     return (
-        <Grid container direction='row'>
+        <Grid container direction='row' spacing={2}>
             <Grid item md={3}>
                 <div className={classes.paper}>
                     <Typography component="h2" variant="h5">User Profile</Typography>
@@ -139,7 +144,34 @@ export default function ProfileScreen(props) {
 
             <Grid item md={9}>
                 <div className={classes.paper}>
-                    <Typography component="h2" variant="h5">  Orders        </Typography>
+                    <Typography component="h2" variant="h5">Your Orders</Typography>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell align="right">DATE</TableCell>
+                                    <TableCell align="right">TOTAL</TableCell>
+                                    <TableCell align="right">DELIVERED</TableCell>
+                                    <TableCell align="right"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {orders.map((order) => (
+                                    <TableRow key={order._id}>
+                                        <TableCell component="th" scope="row">
+                                            {order.id}
+                                        </TableCell>
+                                        <TableCell align="right">{order.createdAt.substring(0, 10)}</TableCell>
+                                        <TableCell align="right">{order.totalPrice}</TableCell>
+                                        <TableCell align="right">{order.isPaid ? order.paidAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
+                                        <TableCell align="right">{order.isDelivered ? order.deliveredAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
+                                        <TableCell align="right"><Link to={`/order/${order._id}`}>Details</Link></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
             </Grid>
 
