@@ -1,6 +1,6 @@
 import {
     ORDER_CREATE_ERR, ORDER_CREATE_REQ, ORDER_CREATE_SUCCESS,
-    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ
+    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_SUCCESS, ORDER_PAY_REQ, ORDER_PAY_ERR, ORDER_RESET
 } from '../consts/orderConsts'
 
 export const createOrderReducer = (state = {}, action) => {
@@ -33,6 +33,21 @@ export const orderInfoReducer = (state = { loading: true, orderItems: [], shippi
                 loading: false,
                 error: action.payload,
             }
+        default:
+            return state
+    }
+}
+
+export const updateOrderPayReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ORDER_PAY_SUCCESS:
+            return { loading: false, success: true }
+        case ORDER_PAY_REQ:
+            return { loading: true }
+        case ORDER_PAY_ERR:
+            return { loading: false, error: action.payload }
+        case ORDER_RESET:
+            return {}
         default:
             return state
     }

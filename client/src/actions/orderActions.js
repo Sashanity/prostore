@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
     ORDER_CREATE_ERR, ORDER_CREATE_REQ, ORDER_CREATE_SUCCESS,
-    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ
+    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_ERR, ORDER_PAY_SUCCESS, ORDER_PAY_REQ
 } from '../consts/orderConsts'
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -46,6 +46,31 @@ export const getOrderInfo = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: ORDER_INFO_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const orderPay = (id, paymentResult) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: ORDER_PAY_REQ })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.put(`/api/orders/${id}/pay`, paymentResult, config)
+        dispatch({ type: ORDER_PAY_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: ORDER_PAY_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
