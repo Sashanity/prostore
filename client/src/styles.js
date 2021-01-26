@@ -32,4 +32,7 @@ export const useStyles = makeStyles((theme) => ({
         height: 0,
         paddingTop: '80%'
     },
+    table: {
+        minWidth: 650,
+    },
 }));

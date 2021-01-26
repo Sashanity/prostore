@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { USER_LOGIN_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ, USER_PROFILE_REQ, USER_PROFILE_SUCCESS, USER_PROFILE_ERR, USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR } from '../consts/userConsts'
+import {
+    USER_LOGIN_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS,
+    USER_LOGOUT,
+    USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ,
+    USER_PROFILE_REQ, USER_PROFILE_SUCCESS, USER_PROFILE_ERR, USER_PROFILE_RESET,
+    USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR
+} from '../consts/userConsts'
+import { ORDER_LIST_RESET } from '../consts/orderConsts'
 
 export const loginUser = (email, password) => async (dispatch) => {
     try {
@@ -50,7 +57,13 @@ export const signupUser = (name, email, password) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
     localStorage.removeItem('userInfo')
     dispatch({
-        type: USER_LOGOUT,
+        type: USER_LOGOUT
+    })
+    dispatch({
+        type: USER_PROFILE_RESET
+    })
+    dispatch({
+        type: ORDER_LIST_RESET
     })
 }
 

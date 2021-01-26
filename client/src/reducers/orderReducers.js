@@ -1,6 +1,6 @@
 import {
     ORDER_CREATE_ERR, ORDER_CREATE_REQ, ORDER_CREATE_SUCCESS,
-    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_SUCCESS, ORDER_PAY_REQ, ORDER_PAY_ERR, ORDER_PAY_RESET, ORDER_LIST_ERR, ORDER_LIST_REQ, ORDER_LIST_SUCCESS
+    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_SUCCESS, ORDER_PAY_REQ, ORDER_PAY_ERR, ORDER_PAY_RESET, ORDER_LIST_ERR, ORDER_LIST_REQ, ORDER_LIST_SUCCESS, ORDER_LIST_RESET
 } from '../consts/orderConsts'
 
 export const createOrderReducer = (state = {}, action) => {
@@ -61,6 +61,8 @@ export const orderListReducer = (state = { orders: [] }, action) => {
             return { loading: true, orders: [] }
         case ORDER_LIST_ERR:
             return { loading: false, error: action.payload }
+        case ORDER_LIST_RESET:
+            return { orders: [] }
         default:
             return state
     }

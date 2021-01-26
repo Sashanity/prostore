@@ -154,14 +154,13 @@ export default function ProfileScreen(props) {
                                     <TableCell align="right">TOTAL</TableCell>
                                     <TableCell align="right">DELIVERED</TableCell>
                                     <TableCell align="right"></TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders.map((order) => (
                                     <TableRow key={order._id}>
-                                        <TableCell component="th" scope="row">
-                                            {order.id}
-                                        </TableCell>
+                                        <TableCell component="th" scope="row">{order._id}</TableCell>
                                         <TableCell align="right">{order.createdAt.substring(0, 10)}</TableCell>
                                         <TableCell align="right">{order.totalPrice}</TableCell>
                                         <TableCell align="right">{order.isPaid ? order.paidAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
