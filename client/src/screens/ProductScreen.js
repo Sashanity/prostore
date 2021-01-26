@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Card, CardMedia, Divider, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 import { Link } from 'react-router-dom'
-import Rating from '../components/Rating';
+import Rating from '../components/Rating'
 
-import Progress from '../components/Progress';
+import Progress from '../components/Progress'
 import { getProduct } from '../actions/productActions'
 import AlertMessage from '../components/AlertMessage'
 const useStyles = makeStyles(() => ({

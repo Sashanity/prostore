@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, CssBaseline, TextField, Typography } from '@material-ui/core'
-import { useStyles } from '../styles'
-import { saveShippingAddress } from '../actions/cartActions'
-import CheckoutSteps from '../components/CheckoutSteps'
+import { useStyles } from '../../styles'
+import { saveShippingAddress } from '../../actions/cartActions'
+import CheckoutSteps from '../../components/CheckoutSteps'
 
 const ShippingScreen = (props) => {
     const { history } = props

@@ -5,13 +5,14 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
-import CartScreen from './screens/CartScreen'
+import CartScreen from './screens/orderProcessing/CartScreen'
 import SignIn from './screens/SingInScreen'
 import SignUp from './screens/SignUpScreen'
 import ProfileScreen from './screens/ProfileScreen'
-import ShippingScreen from './screens/ShippingScreen'
-import PaymentScreen from './screens/PaymentScreen'
-import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import ShippingScreen from './screens/orderProcessing/ShippingScreen'
+import PaymentScreen from './screens/orderProcessing/PaymentScreen'
+import PlaceOrderScreen from './screens/orderProcessing/PlaceOrderScreen'
+import OrderScreen from './screens/OrderScreen'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/placeOrder' component={PlaceOrderScreen} />
+          <Route path='/order/:id' component={OrderScreen} />
         </Container>
       </main>
       <Footer />

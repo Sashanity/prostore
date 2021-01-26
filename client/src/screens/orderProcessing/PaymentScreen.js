@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@material-ui/core'
-import { useStyles } from '../styles'
-import { savePaymentMethod } from '../actions/cartActions'
-import CheckoutSteps from '../components/CheckoutSteps'
+import { useStyles } from '../../styles'
+import { savePaymentMethod } from '../../actions/cartActions'
+import CheckoutSteps from '../../components/CheckoutSteps'
 
 const PaymentScreen = (props) => {
     const { history } = props

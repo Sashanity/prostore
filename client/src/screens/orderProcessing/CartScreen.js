@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { addToCart, removeFromCart } from '../actions/cartActions'
-import AlertMessage from '../components/AlertMessage'
+import { addToCart, removeFromCart } from '../../actions/cartActions'
+import AlertMessage from '../../components/AlertMessage'
 
 const useStyles = makeStyles(() => ({
 
