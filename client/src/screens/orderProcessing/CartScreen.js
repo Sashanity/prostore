@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { addToCart, removeFromCart } from '../actions/cartActions'
-import AlertMessage from '../components/AlertMessage'
+import { addToCart, removeFromCart } from '../../actions/cartActions'
+import AlertMessage from '../../components/AlertMessage'
 
 const useStyles = makeStyles(() => ({
 
@@ -54,13 +54,13 @@ const CartScreen = (props) => {
     //     dispatch(addToCart(i.product, Number(event.target.value)))
     // }
     const handleCheckout = () => {
-        history.push('/login?redirect=shipping')
+        history.push('/signin?redirect=shipping')
     }
     const removeFromCartHandler = (itemID) => {
         dispatch(removeFromCart(itemID))
     }
     return (
-        <Grid container direction='row' spacing={2}>
+        <Grid container direction='row' spacing={2} alignItems="center">
             <Grid item md={8}>
                 <h1> Shopping Cart</h1>
                 {

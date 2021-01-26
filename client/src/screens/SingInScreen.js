@@ -10,11 +10,15 @@ import Progress from '../components/Progress'
 
 export default function SignIn(props) {
     const { history, location } = props
+
     const classes = useStyles();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+
     // redirect to see if user logged in or not
     const redirect = location.search ? location.search.split('=')[1] : '/'
+
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo, loading, error } = userLogin
@@ -22,7 +26,6 @@ export default function SignIn(props) {
         if (userInfo)
             history.push(redirect)
     }, [history, userInfo, redirect])
-
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -34,7 +37,7 @@ export default function SignIn(props) {
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     {/* <LockOutlinedIcon /> */}
-                    <i class="fas fa-lock"></i>
+                    <i className="fas fa-lock"></i>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in

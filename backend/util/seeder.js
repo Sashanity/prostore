@@ -1,4 +1,5 @@
 // This script adds/destroys local data to the mongodb instance
+// npm run data:import
 
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'

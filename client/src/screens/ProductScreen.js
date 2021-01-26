@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Card, CardMedia, Divider, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 import { Link } from 'react-router-dom'
-import Rating from '../components/Rating';
+import Rating from '../components/Rating'
 
-import Progress from '../components/Progress';
+import Progress from '../components/Progress'
 import { getProduct } from '../actions/productActions'
-import AlertMessage from '../components/AlertMessage';
+import AlertMessage from '../components/AlertMessage'
 const useStyles = makeStyles(() => ({
 
     image: {
@@ -70,7 +70,7 @@ const ProductScreen = (props) => {
                 ? <Progress marginTop={'20%'} />
                 : error
                     ? <AlertMessage sev={'error'}>{error}</AlertMessage>
-                    : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }} >
+                    : <Grid container direction='row' spacing={2} styles={{ flexGrow: 1 }}  >
                         <Grid item md={6}>
                             {product.image
                                 ? <CardMedia className={classes.image} image={product.image} />
