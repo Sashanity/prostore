@@ -10,4 +10,4 @@ export const ORDER_PAY_REQ = 'ORDER_PAY_REQ'
 export const ORDER_PAY_SUCCESS = 'ORDER_PAY_SUCCESS'
 export const ORDER_PAY_ERR = 'ORDER_PAY_ERR'
 
-export const ORDER_RESET = 'ORDER_RESET'
+export const ORDER_PAY_RESET = 'ORDER_RESET'
