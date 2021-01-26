@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Grid, TextField, Typography } from '@material-ui/core'
 
 import { useStyles } from '../styles'
-import { getUserProfile, updateUserProfile } from '../actions/userActions';
-import AlertMessage from '../components/AlertMessage';
-import Progress from '../components/Progress';
+import { getUserProfile, updateUserProfile } from '../actions/userActions'
+import { getMyOrders } from '../actions/orderActions'
+import AlertMessage from '../components/AlertMessage'
+import Progress from '../components/Progress'
 import { USER_PROFILE_UPDATE_RESET } from '../consts/userConsts'
 
 export default function ProfileScreen(props) {
