@@ -25,18 +25,28 @@ export default function Header() {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorElA, setAnchorElA] = useState(null);
 
-    const handleClick = (event) => {
+    const handleClickUser = (event) => {
         setAnchorEl(event.currentTarget);
         console.log('NAVLINK CLICKED')
+    }
+
+    const handleClickAdmin = (event) => {
+        setAnchorElA(event.currentTarget);
+        console.log('NAVLINK ADMIN CLICKED')
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
+    };
+    const handleCloseA = () => {
+        setAnchorElA(null)
     };
     const handleLogout = () => {
         dispatch(logoutUser())
+        setAnchorEl(null)
     }
 
     return (
@@ -51,30 +61,50 @@ export default function Header() {
                                 <Box>
                                     <Button
                                         style={{ color: '#969696' }}
-                                        onClick={handleClick}>
+                                        onClick={handleClickUser}>
                                         {userInfo.name}<i className="fas fa-caret-down"></i>
                                     </Button>
                                     <Menu
-                                        id="simple-menu"
+                                        id="menu-user"
                                         anchorEl={anchorEl}
                                         keepMounted
                                         open={Boolean(anchorEl)}
                                         onClose={handleClose}
                                         TransitionComponent={Fade}
                                     >
-                                        <MenuItem onClick={handleClose}><Link to='/profile'>Profile</Link></MenuItem>
-
-                                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                        <MenuItem onClick={handleClose}><Link to='/profile'>PROFILE</Link></MenuItem>
+                                        <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
                                     </Menu>
                                 </Box>
                             )
                             : <Link to='/signin'><i className='fas fa-user'></i> SIGN IN </Link>
                         }
-                        {/* 
-                              
+                        {userInfo && userInfo.isAdmin && (
+                            <Box>
+                                <Button
+                                    style={{ color: '#969696' }}
+                                    onClick={handleClickAdmin}>
+                                    ADMIN <i className="fas fa-caret-down"></i>
+                                </Button>
+                                <Menu
+                                    id="menu-admin"
+                                    anchorEl={anchorElA}
+                                    keepMounted
+                                    open={Boolean(anchorElA)}
+                                    onClose={handleCloseA}
+                                    TransitionComponent={Fade}
+                                >
+                                    <MenuItem onClick={handleCloseA}><Link to='/admin/users'>USERS</Link></MenuItem>
+                                    <MenuItem onClick={handleCloseA}><Link to='/admin/orders'>ORDERS</Link></MenuItem>
+                                    <MenuItem onClick={handleCloseA}><Link to='/admin/products'>PRODUCTS</Link></MenuItem>
 
-                        
- */}
+
+                                </Menu>
+                            </Box>
+                        )
+
+                        }
+
 
                     </Toolbar>
                 </Container >
