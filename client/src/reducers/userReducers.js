@@ -2,7 +2,7 @@ import {
     USER_LOGIN_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS,
     USER_LOGOUT,
     USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ,
-    USER_PROFILE_SUCCESS, USER_PROFILE_REQ, USER_PROFILE_ERR, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_ERR, USER_PROFILE_UPDATE_RESET, USER_PROFILE_RESET
+    USER_PROFILE_SUCCESS, USER_PROFILE_REQ, USER_PROFILE_ERR, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_ERR, USER_PROFILE_UPDATE_RESET, USER_PROFILE_RESET, USER_LIST_SUCCESS, USER_LIST_REQ, USER_LIST_ERR
 
 } from '../consts/userConsts'
 
@@ -59,6 +59,19 @@ export const updateProfileReducer = (state = {}, action) => {
             return { loading: false, error: action.payload }
         case USER_PROFILE_UPDATE_RESET:
             return {}
+        default:
+            return state
+    }
+}
+
+export const userListReducer = (state = { users: [] }, action) => {
+    switch (action.type) {
+        case USER_LIST_SUCCESS:
+            return { loading: false, users: action.payload }
+        case USER_LIST_REQ:
+            return { loading: true, users: [] }
+        case USER_LIST_ERR:
+            return { loading: false, error: action.payload }
         default:
             return state
     }

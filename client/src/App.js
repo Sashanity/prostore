@@ -13,6 +13,7 @@ import ShippingScreen from './screens/orderProcessing/ShippingScreen'
 import PaymentScreen from './screens/orderProcessing/PaymentScreen'
 import PlaceOrderScreen from './screens/orderProcessing/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
+import UserListScreen from './screens/adminScreens/UserListScreen'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/placeOrder' component={PlaceOrderScreen} />
           <Route path='/order/:id' component={OrderScreen} />
+          <Route path='/admin/users' component={UserListScreen} />
         </Container>
       </main>
       <Footer />

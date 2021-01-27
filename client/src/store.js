@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { productListReducer, productReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers'
-import { loginUserReducer, signupReducer, getProfileReducer, updateProfileReducer } from './reducers/userReducers'
+import { loginUserReducer, signupReducer, getProfileReducer, updateProfileReducer, userListReducer } from './reducers/userReducers'
 import { createOrderReducer, orderInfoReducer, updateOrderPayReducer, orderListReducer } from './reducers/orderReducers'
 
 const reducer = combineReducers({
@@ -17,7 +17,8 @@ const reducer = combineReducers({
     orderCreate: createOrderReducer,
     orderInfo: orderInfoReducer,
     orderPaid: updateOrderPayReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    userList: userListReducer
 
 });
 // fish out array of items in the cart and user info from the local storage
