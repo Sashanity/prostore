@@ -36,14 +36,14 @@ export default function Header() {
     const handleClickAdmin = (event) => {
         setAnchorElA(event.currentTarget);
         console.log('NAVLINK ADMIN CLICKED')
-    };
+    }
 
     const handleClose = () => {
         setAnchorEl(null)
-    };
+    }
     const handleCloseA = () => {
         setAnchorElA(null)
-    };
+    }
     const handleLogout = () => {
         dispatch(logoutUser())
         setAnchorEl(null)

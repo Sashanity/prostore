@@ -19,21 +19,26 @@ const UserListScreen = (props) => {
     const { users, loading, error } = userList
 
     useEffect(() => {
-        if (!userInfo)
-            history.push('/signin')
+        if (userInfo && userInfo.isAdmin)
+            dispatch(getUserList())
         else {
-            if (userInfo.isAdmin)
-                dispatch(getUserList())
+            history.push('/signin')
+
         }
     }, [dispatch, userInfo])
 
+    const deleteHandler = (userID) => {
+        if (window.confirm('Are you sure')) {
+            //   dispatch(deleteUser(userID))
+        }
+    }
     return (
         loading
             ? <Progress marginTop={'20%'} />
             : error
                 ? <AlertMessage sev={'error'}>{error}</AlertMessage>
                 : <Container>
-                    <Typography component="h2" variant="h5">Users</Typography>
+                    <h1>Users</h1>
                     <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
@@ -51,9 +56,21 @@ const UserListScreen = (props) => {
                                     <TableRow key={user._id}>
                                         <TableCell component="th" scope="row">{user._id}</TableCell>
                                         <TableCell align="right">{user.name}</TableCell>
-                                        <TableCell align="right">{user.email}</TableCell>
+                                        <TableCell align="right"><a href={`mailto:${user.email}`}>{user.email}</a></TableCell>
                                         <TableCell align="right">{user.isAdmin && <i className='fas fa-check'></i>}</TableCell>
-                                        <TableCell align="right"><Link to={`mailto:${user.email}`}>Email</Link></TableCell>
+                                        <TableCell align="right">
+                                            <Link to={`/admin/user/${user._id}/edit`}>
+                                                <Button >
+                                                    <i className='fas fa-edit'></i>
+                                                </Button>
+                                            </Link>
+                                            <Button
+                                                color="secondary"
+                                                onClick={() => deleteHandler(user._id)}
+                                            >
+                                                <i className='fas fa-trash'></i>
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
