@@ -1,4 +1,8 @@
-<h1 align="center">ProStore</h1>
+<div align="center">
+<h1>ProStore</h1>
+<p>MERN eCommerce platform</p>
+<p>built with Material UI</p>
+</div>
 
 ## External Requirements
 
