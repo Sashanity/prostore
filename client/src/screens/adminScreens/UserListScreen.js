@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core'
+import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { getUserList, deleteUserById } from '../../actions/userActions'
 import { useStyles } from '../../styles'
@@ -26,7 +26,7 @@ const UserListScreen = (props) => {
         else {
             history.push('/signin')
         }
-    }, [dispatch, userInfo, success])
+    }, [dispatch, userInfo, success, history])
 
     const deleteHandler = (userID) => {
         if (window.confirm('Are you sure')) {
