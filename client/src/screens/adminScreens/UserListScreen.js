@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { getUserList } from '../../actions/userActions'
+import { getUserList, deleteUserById } from '../../actions/userActions'
 import { useStyles } from '../../styles'
 import Progress from '../../components/Progress';
 import AlertMessage from '../../components/AlertMessage';
@@ -17,19 +17,20 @@ const UserListScreen = (props) => {
     const { userInfo } = userLogin
     const userList = useSelector(state => state.userList)
     const { users, loading, error } = userList
+    const userDelete = useSelector(state => state.userDelete)
+    const { success } = userDelete
 
     useEffect(() => {
         if (userInfo && userInfo.isAdmin)
             dispatch(getUserList())
         else {
             history.push('/signin')
-
         }
-    }, [dispatch, userInfo])
+    }, [dispatch, userInfo, success])
 
     const deleteHandler = (userID) => {
         if (window.confirm('Are you sure')) {
-            //   dispatch(deleteUser(userID))
+            dispatch(deleteUserById(userID))
         }
     }
     return (
@@ -44,10 +45,10 @@ const UserListScreen = (props) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>ID</TableCell>
-                                    <TableCell align="right">NAME</TableCell>
-                                    <TableCell align="right">EMAIL</TableCell>
-                                    <TableCell align="right">ADMIN</TableCell>
-                                    <TableCell align="right"></TableCell>
+                                    <TableCell align="center">NAME</TableCell>
+                                    <TableCell align="center">EMAIL</TableCell>
+                                    <TableCell align="center">ADMIN</TableCell>
+                                    <TableCell align="center"></TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
@@ -55,10 +56,10 @@ const UserListScreen = (props) => {
                                 {users.map((user) => (
                                     <TableRow key={user._id}>
                                         <TableCell component="th" scope="row">{user._id}</TableCell>
-                                        <TableCell align="right">{user.name}</TableCell>
-                                        <TableCell align="right"><a href={`mailto:${user.email}`}>{user.email}</a></TableCell>
-                                        <TableCell align="right">{user.isAdmin && <i className='fas fa-check'></i>}</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="center">{user.name}</TableCell>
+                                        <TableCell align="center"><a href={`mailto:${user.email}`}>{user.email}</a></TableCell>
+                                        <TableCell align="center">{user.isAdmin && <i className='fas fa-check'></i>}</TableCell>
+                                        <TableCell align="center">
                                             <Link to={`/admin/user/${user._id}/edit`}>
                                                 <Button >
                                                     <i className='fas fa-edit'></i>

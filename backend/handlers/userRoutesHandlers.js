@@ -67,7 +67,8 @@ export const userAuth = asyncHandler(async (req, res) => {
     }
     else {
         res.status(401)
-        throw new Error('Invalid email or password')
+        if (!user) { throw new Error('User does not exist') }
+        else { throw new Error('Invalid email or password') }
     }
 })
 
@@ -134,4 +135,21 @@ export const getListOfUsers = asyncHandler(async (req, res) => {
     const users = await User.find({})
     res.json(users)
 
+})
+
+/*
+@desc    ADMIN Delete user
+@route   Delete /api/users/:id
+@ access Private, Admin
+*/
+export const deleteUserById = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if (user) {
+        await user.remove()
+        res.json({ message: 'User deleted successfully' })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
 })

@@ -4,7 +4,7 @@ import {
     USER_LOGOUT,
     USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ,
     USER_PROFILE_REQ, USER_PROFILE_SUCCESS, USER_PROFILE_ERR, USER_PROFILE_RESET,
-    USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR, USER_LIST_REQ, USER_LIST_SUCCESS, USER_LIST_ERR, USER_LIST_RESET
+    USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR, USER_LIST_REQ, USER_LIST_SUCCESS, USER_LIST_ERR, USER_LIST_RESET, USER_DELETE_REQ, USER_DELETE_SUCCESS, USER_DELETE_ERR
 } from '../consts/userConsts'
 import { ORDER_LIST_RESET } from '../consts/orderConsts'
 
@@ -137,6 +137,31 @@ export const getUserList = () => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: USER_LIST_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+
+export const deleteUserById = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_DELETE_REQ })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.delete(`/api/users/${id}`, config)
+        dispatch({ type: USER_DELETE_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: USER_DELETE_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
