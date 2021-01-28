@@ -171,6 +171,13 @@ const OrderScreen = (props) => {
 
                             </List>
                         </Card>
+                        <Box mt={2}>
+                            <Link to={'/'}>
+                                <Button
+                                    fullWidth
+                                    className={classes.button}>Continue Shopping</Button></Link>
+                        </Box>
+
 
                     </Grid>
 
