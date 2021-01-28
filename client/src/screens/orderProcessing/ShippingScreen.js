@@ -25,7 +25,7 @@ const ShippingScreen = (props) => {
         dispatch(saveShippingAddress({ address, city, zipCode, country }))
 
         //move to the next page
-        history.push('/payment')
+        history.push('/signin?redirect=payment')
 
     }
 

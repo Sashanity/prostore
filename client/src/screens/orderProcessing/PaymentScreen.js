@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@material-ui/core'
@@ -21,13 +21,13 @@ const PaymentScreen = (props) => {
 
     const dispatch = useDispatch()
 
+
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(savePaymentMethod(paymentMethod))
 
         //move to the next page
-        history.push('/placeOrder')
-
+        history.push('/signin?redirect=placeOrder')
     }
 
     return (
