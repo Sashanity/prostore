@@ -58,12 +58,13 @@ export const updateUserById = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        user.isAdmin = req.body.isAdmin || user.isAdmin
+        user.isAdmin = req.body.isAdmin
 
         // keeping change password because admin should be able to do it
         if (req.body.password) {
             user.password = req.body.password
         }
+
         //save to db
         const updated = await user.save()
         res.json({

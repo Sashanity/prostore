@@ -22,8 +22,6 @@ export default function ProfileScreen(props) {
     const [confPassword, setConfPassword] = useState('')
     const [msg, setMsg] = useState('')
 
-
-
     const dispatch = useDispatch()
     const userProfile = useSelector(state => state.userProfile)
     const { user, loading, error } = userProfile

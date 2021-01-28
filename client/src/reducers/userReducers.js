@@ -2,7 +2,12 @@ import {
     USER_LOGIN_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS,
     USER_LOGOUT,
     USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ,
-    USER_PROFILE_SUCCESS, USER_PROFILE_REQ, USER_PROFILE_ERR, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_ERR, USER_PROFILE_UPDATE_RESET, USER_PROFILE_RESET, USER_LIST_SUCCESS, USER_LIST_REQ, USER_LIST_ERR, USER_LIST_RESET, USER_DELETE_SUCCESS, USER_DELETE_REQ, USER_DELETE_ERR
+    USER_PROFILE_SUCCESS, USER_PROFILE_REQ, USER_PROFILE_ERR,
+    USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_ERR, USER_PROFILE_UPDATE_RESET,
+    USER_PROFILE_RESET,
+    USER_LIST_SUCCESS, USER_LIST_REQ, USER_LIST_ERR, USER_LIST_RESET,
+    USER_DELETE_SUCCESS, USER_DELETE_REQ, USER_DELETE_ERR,
+    USER_EDIT_SUCCESS, USER_EDIT_REQ, USER_EDIT_ERR, USER_EDIT_RESET
 
 } from '../consts/userConsts'
 
@@ -88,6 +93,21 @@ export const userDeleteReducer = (state = {}, action) => {
         case USER_DELETE_ERR:
             return { loading: false, error: action.payload }
 
+        default:
+            return state
+    }
+}
+
+export const userEditReducer = (state = { user: {} }, action) => {
+    switch (action.type) {
+        case USER_EDIT_SUCCESS:
+            return { loading: false, success: true }
+        case USER_EDIT_REQ:
+            return { loading: true }
+        case USER_EDIT_ERR:
+            return { loading: false, error: action.payload }
+        case USER_EDIT_RESET:
+            return { user: {} }
         default:
             return state
     }

@@ -4,7 +4,7 @@ import {
     USER_LOGOUT,
     USER_REGISTER_ERR, USER_REGISTER_SUCCESS, USER_REGISTER_REQ,
     USER_PROFILE_REQ, USER_PROFILE_SUCCESS, USER_PROFILE_ERR, USER_PROFILE_RESET,
-    USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR, USER_LIST_REQ, USER_LIST_SUCCESS, USER_LIST_ERR, USER_LIST_RESET, USER_DELETE_REQ, USER_DELETE_SUCCESS, USER_DELETE_ERR
+    USER_PROFILE_UPDATE_REQ, USER_PROFILE_UPDATE_SUCCESS, USER_PROFILE_UPDATE_ERR, USER_LIST_REQ, USER_LIST_SUCCESS, USER_LIST_ERR, USER_LIST_RESET, USER_DELETE_REQ, USER_DELETE_SUCCESS, USER_DELETE_ERR, USER_EDIT_REQ, USER_EDIT_SUCCESS, USER_EDIT_ERR, USER_EDIT_RESET
 } from '../consts/userConsts'
 import { ORDER_LIST_RESET } from '../consts/orderConsts'
 
@@ -162,6 +162,35 @@ export const deleteUserById = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: USER_DELETE_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+
+export const editUserAdmin = (user) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_EDIT_REQ })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const { data } = await axios.put(`/api/users/${user._id}`, user, config)
+        dispatch({ type: USER_EDIT_SUCCESS, payload: data })
+        dispatch({ type: USER_PROFILE_SUCCESS, payload: data })
+        dispatch({ type: USER_PROFILE_RESET })
+
+        localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+        dispatch({
+            type: USER_EDIT_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
