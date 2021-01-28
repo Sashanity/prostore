@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS, PRODUCT_ERR, PRODUCT_REQ, PRODUCT_SUCCESS } from '../consts/productsConsts'
+import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS, PRODUCT_ERR, PRODUCT_REQ, PRODUCT_SUCCESS, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_REQ, PRODUCT_DELETE_ERR } from '../consts/productsConsts'
 
 export const productListReducer = (state = { products: [] }, action) => {
     switch (action.type) {
@@ -25,4 +25,19 @@ export const productReducer = (state = { product: { reviews: [] } }, action) => 
             return state
     }
 }
+
+export const productDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_DELETE_SUCCESS:
+            return { loading: false, success: true }
+        case PRODUCT_DELETE_REQ:
+            return { loading: true }
+        case PRODUCT_DELETE_ERR:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
 

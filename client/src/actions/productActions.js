@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS, PRODUCT_ERR, PRODUCT_REQ, PRODUCT_SUCCESS } from '../consts/productsConsts'
+import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS, PRODUCT_ERR, PRODUCT_REQ, PRODUCT_SUCCESS, PRODUCT_DELETE_REQ, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_ERR } from '../consts/productsConsts'
 
 export const getProducts = () => async (dispatch) => {
     try {
@@ -28,6 +28,30 @@ export const getProduct = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: PRODUCT_DELETE_REQ })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        await axios.delete(`/api/products/${id}`, config)
+        dispatch({ type: PRODUCT_DELETE_SUCCESS })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_DELETE_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { getProducts } from '../../actions/productActions'
+import { getProducts, deleteProduct } from '../../actions/productActions'
 import { useStyles } from '../../styles'
 import Progress from '../../components/Progress';
 import AlertMessage from '../../components/AlertMessage';
@@ -17,18 +17,26 @@ const ProductsListScreen = (props) => {
 
     const productList = useSelector(state => state.productList)
     const { products, loading, error } = productList
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+    const productDelete = useSelector(state => state.productDelete)
+    const { success } = productDelete
+
     useEffect(() => {
+        if (userInfo && userInfo.isAdmin) {
+            dispatch(getProducts())
+        }
+        else {
+            history.push('/signin')
+        }
+    }, [dispatch, userInfo, history, success])
 
-        dispatch(getProducts())
-
-    }, [dispatch])
-
-    const deleteHandler = (userID) => {
+    const deleteHandler = (productID) => {
         if (window.confirm('Are you sure')) {
-            // dispatch(deleteUserById(userID))
-            console.log('delete product')
+            dispatch(deleteProduct(productID))
         }
     }
+
     return (
         loading
             ? <Progress marginTop={'20%'} />

@@ -20,6 +20,7 @@ const UserListScreen = (props) => {
     const userDelete = useSelector(state => state.userDelete)
     const { success } = userDelete
 
+    // success as dependency so that screen refreshes on successful delete
     useEffect(() => {
         if (userInfo && userInfo.isAdmin)
             dispatch(getUserList())
