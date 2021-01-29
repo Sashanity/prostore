@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { getProducts, deleteProduct } from '../../actions/productActions'
+import { getProducts, deleteProduct, createProduct } from '../../actions/productActions'
 import { useStyles } from '../../styles'
 import Progress from '../../components/Progress';
 import AlertMessage from '../../components/AlertMessage';
+import { PRODUCT_CREATE_RESET } from '../../consts/productsConsts'
 
 const ProductsListScreen = (props) => {
     const { history } = props
@@ -20,21 +21,31 @@ const ProductsListScreen = (props) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const productDelete = useSelector(state => state.productDelete)
-    const { success } = productDelete
+    const { success: successDelete, loading: loadingDelete, error: errorDelete } = productDelete
+    const productCreate = useSelector(state => state.productCreate)
+    const { product: newProduct, success: successCreate, loading: loadingCreate, error: errorCreate } = productCreate
 
     useEffect(() => {
-        if (userInfo && userInfo.isAdmin) {
-            dispatch(getProducts())
-        }
-        else {
+        dispatch({ type: PRODUCT_CREATE_RESET })
+
+        if (!userInfo && !userInfo.isAdmin) {
             history.push('/signin')
         }
-    }, [dispatch, userInfo, history, success])
+        if (successCreate) {
+            history.push(`/admin/product/${newProduct._id}/edit`)
+        }
+        else {
+            dispatch(getProducts())
+        }
+    }, [dispatch, userInfo, history, successDelete, successCreate, newProduct])
 
     const deleteHandler = (productID) => {
         if (window.confirm('Are you sure')) {
             dispatch(deleteProduct(productID))
         }
+    }
+    const createHandler = () => {
+        dispatch(createProduct())
     }
 
     return (
@@ -52,10 +63,15 @@ const ProductsListScreen = (props) => {
                                 className={classes.button}
                                 variant="contained"
                                 fullWidth
+                                onClick={createHandler}
                             >
                                 <i className="fas fa-plus"></i> Create Product
                             </Button>
                         </Grid>
+                        {loadingCreate && <Progress />}
+                        {errorCreate && <AlertMessage sev={'error'}>{errorCreate}</AlertMessage>}
+                        {loadingDelete && <Progress />}
+                        {errorDelete && <AlertMessage sev={'error'}>{errorDelete}</AlertMessage>}
 
                     </Grid>
 
