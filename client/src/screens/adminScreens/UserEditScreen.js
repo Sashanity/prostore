@@ -56,103 +56,107 @@ export default function UserEditScreen(props) {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <i className='fas fa-edit'></i>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Edit User
+        <>
+            <Link to='/admin/users'><Button>Go Back</Button></Link>
+            <Container component="main" maxWidth="xs">
+
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <i className='fas fa-edit'></i>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Edit User
         </Typography>
 
-                {error && <AlertMessage sev={'error'}>{error}</AlertMessage>}
-                {loading && <Progress />}
-                {loadingEdit && <Progress />}
-                {errorEdit && <AlertMessage sev={'error'}>{errorEdit}</AlertMessage>}
+                    {error && <AlertMessage sev={'error'}>{error}</AlertMessage>}
+                    {loading && <Progress />}
+                    {loadingEdit && <Progress />}
+                    {errorEdit && <AlertMessage sev={'error'}>{errorEdit}</AlertMessage>}
 
-                <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} >
-                            <TextField
-                                autoComplete="name"
-                                name="Name"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="Name"
-                                label=" Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </Grid>
+                    <form className={classes.form} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} >
+                                <TextField
+                                    autoComplete="name"
+                                    name="Name"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="Name"
+                                    label=" Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </Grid>
 
 
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                placeholder='example@email.com'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={(e) => setReset(true)}>
-                                Reset Password
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    placeholder='example@email.com'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={(e) => setReset(true)}>
+                                    Reset Password
                                 </Button>
+                            </Grid>
+                            {reset && (
+                                <>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            variant="outlined"
+
+                                            fullWidth
+                                            name="password"
+                                            label="Password"
+                                            // type="password"
+                                            id="password"
+                                            value={password}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={generatePassword}>
+                                            Generate Password</Button>
+                                    </Grid>
+                                </>
+                            )}
+
                         </Grid>
-                        {reset && (
-                            <>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        variant="outlined"
-
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        // type="password"
-                                        id="password"
-                                        value={password}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        onClick={generatePassword}>
-                                        Generate Password</Button>
-                                </Grid>
-                            </>
-                        )}
-
-                    </Grid>
-                    <FormControlLabel
-                        control={<Checkbox
-                            checked={isAdmin} color="primary" onChange={(e) => setIsAdmin(e.target.checked)} />}
-                        label="Admin"
-                    />
-                    <br></br>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        className={classes.button}
-                        onClick={submitHandler}
-                    >
-                        Submit Changes
+                        <FormControlLabel
+                            control={<Checkbox
+                                checked={isAdmin} color="primary" onChange={(e) => setIsAdmin(e.target.checked)} />}
+                            label="Admin"
+                        />
+                        <br></br>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            className={classes.button}
+                            onClick={submitHandler}
+                        >
+                            Submit Changes
                     </Button>
 
-                </form>
-            </div>
+                    </form>
+                </div>
 
-        </Container>
+            </Container>
+        </>
     );
 }

@@ -50,7 +50,7 @@ const ProductsListScreen = (props) => {
 
     return (
         loading
-            ? <Progress marginTop={'20%'} />
+            ? <Progress marginTop={'20%'} s={200} />
             : error
                 ? <AlertMessage sev={'error'}>{error}</AlertMessage>
                 : <Container>
