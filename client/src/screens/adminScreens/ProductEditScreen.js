@@ -32,24 +32,30 @@ export default function ProductEditScreen(props) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!product || product._id !== productID) {
-            dispatch(getProduct(productID))
-        } else {
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setBrand(product.brand)
-            setCategory(product.category)
-            setCountInStock(product.countInStock)
-            setDescription(product.description)
+        if (successEdit) {
+            dispatch({ type: PRODUCT_EDIT_RESET })
+            history.push('/signin?redirect=/admin/products')
+        }
+        else {
+            if (!product || product._id !== productID) {
+                dispatch(getProduct(productID))
+            } else {
+                setName(product.name)
+                setPrice(product.price)
+                setImage(product.image)
+                setBrand(product.brand)
+                setCategory(product.category)
+                setCountInStock(product.countInStock)
+                setDescription(product.description)
+            }
         }
 
-    }, [history, dispatch, product, productID])
+
+    }, [history, dispatch, product, productID, successEdit])
 
     const submitHandler = (e) => {
         e.preventDefault()
-        //  dispatch(editProductAdmin())
-
+        dispatch(editProductAdmin({ _id: productID, name, price, image, brand, category, countInStock, description }))
 
     }
 
@@ -78,7 +84,6 @@ export default function ProductEditScreen(props) {
                                     autoComplete="name"
                                     name="Name"
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="Name"
                                     label=" Name"
@@ -89,7 +94,6 @@ export default function ProductEditScreen(props) {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="price"
                                     label="price"
@@ -102,7 +106,6 @@ export default function ProductEditScreen(props) {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="image"
                                     label="image"
@@ -115,7 +118,6 @@ export default function ProductEditScreen(props) {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="brand"
                                     label="brand"
@@ -127,7 +129,6 @@ export default function ProductEditScreen(props) {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="count instock"
                                     label="count in stock"
@@ -140,7 +141,6 @@ export default function ProductEditScreen(props) {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="category"
                                     label="category"
@@ -151,8 +151,8 @@ export default function ProductEditScreen(props) {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    size='medium'
                                     variant="outlined"
-                                    required
                                     fullWidth
                                     id="description"
                                     label="description"

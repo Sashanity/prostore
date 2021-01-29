@@ -47,8 +47,6 @@ export default function UserEditScreen(props) {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(editUserAdmin({ _id: userID, name, email, isAdmin, password }))
-
-
     }
     const generatePassword = (e) => {
         // generte random string of length 8
