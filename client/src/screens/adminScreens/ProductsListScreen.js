@@ -28,7 +28,7 @@ const ProductsListScreen = (props) => {
     useEffect(() => {
         dispatch({ type: PRODUCT_CREATE_RESET })
 
-        if (!userInfo && !userInfo.isAdmin) {
+        if (!userInfo || !userInfo.isAdmin) {
             history.push('/signin')
         }
         if (successCreate) {
