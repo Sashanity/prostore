@@ -9,8 +9,8 @@ import { Box, Button, Card, CardMedia, Container, CssBaseline, Divider, Grid, Li
 
 import Progress from '../components/Progress';
 import { useStyles } from '../styles'
-import { getOrderInfo, orderPay } from '../actions/orderActions'
-import { ORDER_PAY_RESET } from '../consts/orderConsts'
+import { getOrderInfo, orderPay, orderDeliver } from '../actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../consts/orderConsts'
 
 const OrderScreen = (props) => {
     const { match } = props
@@ -19,10 +19,14 @@ const OrderScreen = (props) => {
     const orderID = match.params.id
 
     // bring it from the state
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const orderInfo = useSelector((state) => state.orderInfo)
     const { order, loading, error } = orderInfo
     const orderPaid = useSelector((state) => state.orderPaid)
     const { loading: loadingPaid, success: successPaid } = orderPaid
+    const orderDelivery = useSelector((state) => state.orderDelivery)
+    const { loading: loadingDelivery, success: successDelivery } = orderDelivery
 
     if (!loading) {
         //   Calculate prices
@@ -41,8 +45,9 @@ const OrderScreen = (props) => {
             }
             document.body.appendChild(script)
         }
-        if (!order || successPaid || order._id !== orderID) {
+        if (!order || successPaid || order._id !== orderID || successDelivery) {
             dispatch({ type: ORDER_PAY_RESET })
+            dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderInfo(orderID))
         } else {
             if (!order.isPaid) {
@@ -55,13 +60,16 @@ const OrderScreen = (props) => {
             }
         }
 
-    }, [dispatch, order, successPaid, orderID])
+    }, [dispatch, order, successPaid, orderID, successDelivery])
 
 
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(orderPay(orderID, paymentResult))
 
+    }
+    const deliverHandler = () => {
+        dispatch(orderDeliver(order))
     }
     return loading
         ? <Progress marginTop={'20%'} />
@@ -166,6 +174,16 @@ const OrderScreen = (props) => {
                                                     onSuccess={successPaymentHandler}
                                                 />
                                             )}
+                                    </ListItem>
+                                )}
+                                {loadingDelivery && <Progress />}
+                                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                    <ListItem>
+                                        <Button
+                                            className={classes.button}
+                                            fullWidth
+                                            onClick={deliverHandler}
+                                        >Mark as Delivered</Button>
                                     </ListItem>
                                 )}
 

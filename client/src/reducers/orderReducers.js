@@ -1,15 +1,12 @@
-import {
-    ORDER_CREATE_ERR, ORDER_CREATE_REQ, ORDER_CREATE_SUCCESS,
-    ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_SUCCESS, ORDER_PAY_REQ, ORDER_PAY_ERR, ORDER_PAY_RESET, ORDER_LIST_ERR, ORDER_LIST_REQ, ORDER_LIST_SUCCESS, ORDER_LIST_RESET
-} from '../consts/orderConsts'
+import * as constants from '../consts/orderConsts'
 
 export const createOrderReducer = (state = {}, action) => {
     switch (action.type) {
-        case ORDER_CREATE_SUCCESS:
+        case constants.ORDER_CREATE_SUCCESS:
             return { loading: false, success: true, order: action.payload }
-        case ORDER_CREATE_REQ:
+        case constants.ORDER_CREATE_REQ:
             return { loading: true }
-        case ORDER_CREATE_ERR:
+        case constants.ORDER_CREATE_ERR:
             return { loading: false, error: action.payload }
         default:
             return state
@@ -18,17 +15,17 @@ export const createOrderReducer = (state = {}, action) => {
 
 export const orderInfoReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
     switch (action.type) {
-        case ORDER_INFO_REQ:
+        case constants.ORDER_INFO_REQ:
             return {
                 ...state,
                 loading: true,
             }
-        case ORDER_INFO_SUCCESS:
+        case constants.ORDER_INFO_SUCCESS:
             return {
                 loading: false,
                 order: action.payload,
             }
-        case ORDER_INFO_ERR:
+        case constants.ORDER_INFO_ERR:
             return {
                 loading: false,
                 error: action.payload,
@@ -40,13 +37,13 @@ export const orderInfoReducer = (state = { loading: true, orderItems: [], shippi
 
 export const updateOrderPayReducer = (state = {}, action) => {
     switch (action.type) {
-        case ORDER_PAY_SUCCESS:
+        case constants.ORDER_PAY_SUCCESS:
             return { loading: false, success: true }
-        case ORDER_PAY_REQ:
+        case constants.ORDER_PAY_REQ:
             return { loading: true }
-        case ORDER_PAY_ERR:
+        case constants.ORDER_PAY_ERR:
             return { loading: false, error: action.payload }
-        case ORDER_PAY_RESET:
+        case constants.ORDER_PAY_RESET:
             return {}
         default:
             return state
@@ -55,14 +52,43 @@ export const updateOrderPayReducer = (state = {}, action) => {
 
 export const orderListReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
-        case ORDER_LIST_SUCCESS:
+        case constants.ORDER_LIST_SUCCESS:
             return { loading: false, orders: action.payload }
-        case ORDER_LIST_REQ:
+        case constants.ORDER_LIST_REQ:
             return { loading: true, orders: [] }
-        case ORDER_LIST_ERR:
+        case constants.ORDER_LIST_ERR:
             return { loading: false, error: action.payload }
-        case ORDER_LIST_RESET:
+        case constants.ORDER_LIST_RESET:
             return { orders: [] }
+        default:
+            return state
+    }
+}
+
+export const orderAdminListReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+        case constants.ORDER_ADMIN_LIST_SUCCESS:
+            return { loading: false, orders: action.payload }
+        case constants.ORDER_ADMIN_LIST_REQ:
+            return { loading: true, orders: [] }
+        case constants.ORDER_ADMIN_LIST_ERR:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export const orderDeliveryReducer = (state = {}, action) => {
+    switch (action.type) {
+        case constants.ORDER_DELIVER_SUCCESS:
+            return { loading: false, success: true }
+        case constants.ORDER_DELIVER_REQ:
+            return { loading: true }
+        case constants.ORDER_DELIVER_ERR:
+            return { loading: false, error: action.payload }
+        case constants.ORDER_DELIVER_RESET:
+            return {}
         default:
             return state
     }
