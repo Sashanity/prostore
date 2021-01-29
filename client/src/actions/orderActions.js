@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { CART_RESET } from '../consts/cartConsts'
 import {
     ORDER_CREATE_ERR, ORDER_CREATE_REQ, ORDER_CREATE_SUCCESS,
     ORDER_INFO_ERR, ORDER_INFO_SUCCESS, ORDER_INFO_REQ, ORDER_PAY_ERR, ORDER_PAY_SUCCESS, ORDER_PAY_REQ, ORDER_LIST_REQ, ORDER_LIST_ERR, ORDER_LIST_SUCCESS
@@ -18,6 +19,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         }
         const { data } = await axios.post(`/api/orders`, order, config)
         dispatch({ type: ORDER_CREATE_SUCCESS, payload: data })
+        dispatch({ type: CART_RESET, payload: data })
 
     } catch (error) {
         dispatch({
