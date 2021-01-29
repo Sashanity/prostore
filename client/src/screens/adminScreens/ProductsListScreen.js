@@ -31,10 +31,10 @@ const ProductsListScreen = (props) => {
         if (!userInfo || !userInfo.isAdmin) {
             history.push('/signin')
         }
+
         if (successCreate) {
             history.push(`/admin/product/${newProduct._id}/edit`)
-        }
-        else {
+        } else {
             dispatch(getProducts())
         }
     }, [dispatch, userInfo, history, successDelete, successCreate, newProduct])
@@ -68,12 +68,12 @@ const ProductsListScreen = (props) => {
                                 <i className="fas fa-plus"></i> Create Product
                             </Button>
                         </Grid>
-                        {loadingCreate && <Progress />}
-                        {errorCreate && <AlertMessage sev={'error'}>{errorCreate}</AlertMessage>}
-                        {loadingDelete && <Progress />}
-                        {errorDelete && <AlertMessage sev={'error'}>{errorDelete}</AlertMessage>}
 
                     </Grid>
+                    {loadingCreate && <Progress />}
+                    {errorCreate && <AlertMessage sev={'error'}>{errorCreate}</AlertMessage>}
+                    {loadingDelete && <Progress />}
+                    {errorDelete && <AlertMessage sev={'error'}>{errorDelete}</AlertMessage>}
 
                     <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table">
