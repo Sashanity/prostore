@@ -1,8 +1,9 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core'
+import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Input, TextField, Typography } from '@material-ui/core'
 
 import { useStyles } from '../../styles'
 import { getProduct, editProductAdmin } from '../../actions/productActions'
@@ -49,14 +50,33 @@ export default function ProductEditScreen(props) {
                 setDescription(product.description)
             }
         }
-
-
     }, [history, dispatch, product, productID, successEdit])
 
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(editProductAdmin({ _id: productID, name, price, image, brand, category, countInStock, description }))
+    }
+    const uploadHandler = async (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('image', file)
+        setUploading(true)
 
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+
+            const { data } = await axios.post('/api/upload', formData, config)
+
+            setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
     }
 
     return (
@@ -114,6 +134,11 @@ export default function ProductEditScreen(props) {
                                     value={image}
                                     onChange={(e) => setImage(e.target.value)}
                                 />
+                                <Input
+                                    type='file'
+                                    onChange={uploadHandler}
+                                />
+                                {uploading && <Progress />}
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField

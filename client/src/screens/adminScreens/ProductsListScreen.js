@@ -92,7 +92,7 @@ const ProductsListScreen = (props) => {
                                     <TableRow key={product._id}>
                                         <TableCell component="th" scope="row">{product._id}</TableCell>
                                         <TableCell align="center">{product.name}</TableCell>
-                                        <TableCell align="center">{product.price}</TableCell>
+                                        <TableCell align="center">${product.price}</TableCell>
                                         <TableCell align="center">{product.category}</TableCell>
                                         <TableCell align="center">{product.brand}</TableCell>
                                         <TableCell align="center">
