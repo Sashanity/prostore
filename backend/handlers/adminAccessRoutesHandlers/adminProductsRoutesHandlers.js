@@ -28,7 +28,7 @@ export const createNewProduct = asyncHandler(async (req, res) => {
         name: 'Default name',
         price: 0,
         user: req.user._id, // admin id
-        image: '/images/sample.jpg',
+        image: '/images/default-image-png-8.png',
         brand: 'Default brand',
         category: 'Default category',
         countInStock: 0,
