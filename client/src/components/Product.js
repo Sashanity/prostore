@@ -28,7 +28,7 @@ const Product = (props) => {
                             <Typography >{product.name}</Typography>
                         </Link>
                         <Box my={3}>
-                            <Rating value={product.rating} />
+                            <Rating value={product.rating} readOnly precision={0.5} />
                             <p>{product.numReviews} {product.numReviews === 1 ? 'review' : 'reviews'}</p>
                         </Box>
                         <Typography variant='h4'>${product.price}</Typography>

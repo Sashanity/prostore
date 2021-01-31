@@ -34,7 +34,7 @@ const ProductScreen = (props) => {
 
     useEffect(() => {
         if (successReview) {
-            alert('Your review submitted')
+            // alert('Your review submitted')
             setComment('')
             setRating(0)
             setReview(false)
@@ -62,9 +62,9 @@ const ProductScreen = (props) => {
         e.preventDefault()
         if (!userInfo)
             history.push('/signin')
-        console.log('trying to submit')
-        console.log('rating:', rating)
-        console.log('comment:', comment)
+        // console.log('trying to submit')
+        // console.log('rating:', rating)
+        // console.log('comment:', comment)
 
         dispatch(addReview(match.params.id, { rating, comment }))
     }
@@ -206,6 +206,7 @@ const ProductScreen = (props) => {
                                                             <Rating
                                                                 size='small'
                                                                 value={rating}
+                                                                precision={0.5}
                                                                 onChange={(e) => setRating(e.target.value)}
 
                                                             />}
