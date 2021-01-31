@@ -1,11 +1,15 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
+    root: {
+        // makes all text capital(overline) in roboto
+        ...theme.typography.overline,
+    },
     paper: {
         marginTop: theme.spacing(6),
         display: 'flex',
         flexDirection: 'column',
-        // alignItems: 'center',
+        alignItems: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -35,4 +39,8 @@ export const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
+    progress: {
+        margin: 'auto',
+
+    }
 }));

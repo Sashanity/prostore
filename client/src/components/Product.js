@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box, Card, CardActionArea, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core'
-import Rating from './Rating';
+
 import { Link } from 'react-router-dom'
+import { Rating } from '@material-ui/lab';
 
 const useStyles = makeStyles(() => ({
     image: {
@@ -27,7 +28,8 @@ const Product = (props) => {
                             <Typography >{product.name}</Typography>
                         </Link>
                         <Box my={3}>
-                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <Rating value={product.rating} readOnly precision={0.5} />
+                            <p>{product.numReviews} {product.numReviews === 1 ? 'review' : 'reviews'}</p>
                         </Box>
                         <Typography variant='h4'>${product.price}</Typography>
                     </CardContent>

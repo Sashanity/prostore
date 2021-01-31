@@ -67,7 +67,8 @@ export const userAuth = asyncHandler(async (req, res) => {
     }
     else {
         res.status(401)
-        throw new Error('Invalid email or password')
+        if (!user) { throw new Error('User does not exist') }
+        else { throw new Error('Invalid email or password') }
     }
 })
 
@@ -95,7 +96,7 @@ export const getProfile = asyncHandler(async (req, res) => {
 })
 
 /*
-@desc    Get user Profile
+@desc    Update user Profile
 @route   PUT /api/users/profile
 @ access Private
 */

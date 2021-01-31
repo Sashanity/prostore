@@ -1,10 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { productListReducer, productReducer } from './reducers/productReducers';
+import { productListReducer, productReducer, productDeleteReducer, createProductReducer, productEditReducer, reviewReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers'
-import { loginUserReducer, signupReducer, getProfileReducer, updateProfileReducer } from './reducers/userReducers'
-import { createOrderReducer, orderInfoReducer, updateOrderPayReducer, orderListReducer } from './reducers/orderReducers'
+import { loginUserReducer, signupReducer, getProfileReducer, updateProfileReducer, userListReducer, userDeleteReducer, userEditReducer } from './reducers/userReducers'
+import { createOrderReducer, orderInfoReducer, updateOrderPayReducer, orderListReducer, orderAdminListReducer, orderDeliveryReducer } from './reducers/orderReducers'
 
 const reducer = combineReducers({
     productList: productListReducer,
@@ -17,7 +17,16 @@ const reducer = combineReducers({
     orderCreate: createOrderReducer,
     orderInfo: orderInfoReducer,
     orderPaid: updateOrderPayReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    userEdit: userEditReducer,
+    productDelete: productDeleteReducer,
+    productCreate: createProductReducer,
+    productEdit: productEditReducer,
+    orderAdminList: orderAdminListReducer,
+    orderDelivery: orderDeliveryReducer,
+    productReview: reviewReducer
 
 });
 // fish out array of items in the cart and user info from the local storage

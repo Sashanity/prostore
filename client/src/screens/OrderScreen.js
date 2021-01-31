@@ -9,20 +9,24 @@ import { Box, Button, Card, CardMedia, Container, CssBaseline, Divider, Grid, Li
 
 import Progress from '../components/Progress';
 import { useStyles } from '../styles'
-import { getOrderInfo, orderPay } from '../actions/orderActions'
-import { ORDER_PAY_RESET } from '../consts/orderConsts'
+import { getOrderInfo, orderPay, orderDeliver } from '../actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../consts/orderConsts'
 
 const OrderScreen = (props) => {
-    const { match } = props
+    const { match, history } = props
     const classes = useStyles()
     const [sdkReady, setSdkReady] = useState(false)
     const orderID = match.params.id
 
     // bring it from the state
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const orderInfo = useSelector((state) => state.orderInfo)
     const { order, loading, error } = orderInfo
     const orderPaid = useSelector((state) => state.orderPaid)
     const { loading: loadingPaid, success: successPaid } = orderPaid
+    const orderDelivery = useSelector((state) => state.orderDelivery)
+    const { loading: loadingDelivery, success: successDelivery } = orderDelivery
 
     if (!loading) {
         //   Calculate prices
@@ -30,6 +34,9 @@ const OrderScreen = (props) => {
     }
     const dispatch = useDispatch()
     useEffect(() => {
+        if (!userInfo) {
+            history.push('/signin')
+        }
         const createPayPalScript = async () => {
             const { data: clientID } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
@@ -41,8 +48,9 @@ const OrderScreen = (props) => {
             }
             document.body.appendChild(script)
         }
-        if (!order || successPaid || order._id !== orderID) {
+        if (!order || successPaid || order._id !== orderID || successDelivery) {
             dispatch({ type: ORDER_PAY_RESET })
+            dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderInfo(orderID))
         } else {
             if (!order.isPaid) {
@@ -55,7 +63,7 @@ const OrderScreen = (props) => {
             }
         }
 
-    }, [dispatch, order, successPaid, orderID])
+    }, [dispatch, order, successPaid, orderID, successDelivery, userInfo, history])
 
 
     const successPaymentHandler = (paymentResult) => {
@@ -63,6 +71,12 @@ const OrderScreen = (props) => {
         dispatch(orderPay(orderID, paymentResult))
 
     }
+    const deliverHandler = () => {
+        dispatch(orderDeliver(order))
+    }
+
+
+
     return loading
         ? <Progress marginTop={'20%'} />
         : error
@@ -142,13 +156,12 @@ const OrderScreen = (props) => {
                                         <Grid item xs>${order.shippingPrice}</Grid>
                                     </Grid>
                                 </ListItem>
-                                <ListItem>
+                                <ListItem divider>
                                     <Grid container direction='row'>
                                         <Grid item xs>Tax</Grid>
                                         <Grid item xs>${order.taxPrice}</Grid>
                                     </Grid>
                                 </ListItem>
-                                <Divider />
                                 <ListItem>
                                     <Grid container direction='row'>
                                         <Grid item xs>Total</Grid>
@@ -156,21 +169,44 @@ const OrderScreen = (props) => {
                                     </Grid>
                                 </ListItem>
                                 {!order.isPaid && (
-                                    <ListItem>
+                                    <Box mx={2}>
+
                                         {loadingPaid && <Progress />}
                                         {!sdkReady ? (
                                             <Progress />
                                         ) : (
                                                 <PayPalButton
+                                                    style={{ color: 'silver' }}
+
                                                     amount={order.totalPrice}
                                                     onSuccess={successPaymentHandler}
                                                 />
                                             )}
+
+                                    </Box>
+                                )}
+                                {loadingDelivery && <Progress />}
+                                {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                    <ListItem>
+                                        <Button
+                                            className={classes.button}
+                                            fullWidth
+                                            onClick={deliverHandler}
+                                        >Mark as Delivered</Button>
                                     </ListItem>
                                 )}
 
                             </List>
                         </Card>
+                        {
+                            window.location.href.indexOf('/edit') === -1 &&
+                            <Box mt={2}>
+                                <Link to={'/'}>
+                                    <Button
+                                        fullWidth
+                                        className={classes.button}>Continue Shopping</Button></Link>
+                            </Box>
+                        }
 
                     </Grid>
 
