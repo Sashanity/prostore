@@ -1,16 +1,16 @@
 import axios from 'axios'
-import { PRODUCT_LIST_ERR, PRODUCT_LIST_REQ, PRODUCT_LIST_SUCCESS, PRODUCT_ERR, PRODUCT_REQ, PRODUCT_SUCCESS, PRODUCT_DELETE_REQ, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_ERR, PRODUCT_EDIT_REQ, PRODUCT_EDIT_SUCCESS, PRODUCT_EDIT_ERR, PRODUCT_CREATE_REQ, PRODUCT_CREATE_SUCCESS } from '../consts/productsConsts'
+import * as constants from '../consts/productsConsts'
 
 export const getProducts = () => async (dispatch) => {
     try {
         // dispatch ({type, payload})
-        dispatch({ type: PRODUCT_LIST_REQ })
+        dispatch({ type: constants.PRODUCT_LIST_REQ })
         const { data } = await axios.get(`/api/products`)
-        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
+        dispatch({ type: constants.PRODUCT_LIST_SUCCESS, payload: data })
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_LIST_ERR,
+            type: constants.PRODUCT_LIST_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
@@ -21,13 +21,13 @@ export const getProducts = () => async (dispatch) => {
 export const getProduct = (id) => async (dispatch) => {
     try {
         // dispatch ({type, payload})
-        dispatch({ type: PRODUCT_REQ })
+        dispatch({ type: constants.PRODUCT_REQ })
         const { data } = await axios.get(`/api/products/${id}`)
-        dispatch({ type: PRODUCT_SUCCESS, payload: data })
+        dispatch({ type: constants.PRODUCT_SUCCESS, payload: data })
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_ERR,
+            type: constants.PRODUCT_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
@@ -37,7 +37,7 @@ export const getProduct = (id) => async (dispatch) => {
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
     try {
-        dispatch({ type: PRODUCT_DELETE_REQ })
+        dispatch({ type: constants.PRODUCT_DELETE_REQ })
 
         const { userLogin: { userInfo } } = getState()
 
@@ -47,11 +47,11 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
             }
         }
         await axios.delete(`/api/products/${id}`, config)
-        dispatch({ type: PRODUCT_DELETE_SUCCESS })
+        dispatch({ type: constants.PRODUCT_DELETE_SUCCESS })
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_DELETE_ERR,
+            type: constants.PRODUCT_DELETE_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
@@ -61,7 +61,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 
 export const createProduct = () => async (dispatch, getState) => {
     try {
-        dispatch({ type: PRODUCT_CREATE_REQ })
+        dispatch({ type: constants.PRODUCT_CREATE_REQ })
 
         const { userLogin: { userInfo } } = getState()
 
@@ -73,13 +73,13 @@ export const createProduct = () => async (dispatch, getState) => {
         }
         const { data } = await axios.post(`/api/products/`, {}, config)
         dispatch({
-            type: PRODUCT_CREATE_SUCCESS,
+            type: constants.PRODUCT_CREATE_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_DELETE_ERR,
+            type: constants.PRODUCT_DELETE_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
@@ -89,7 +89,7 @@ export const createProduct = () => async (dispatch, getState) => {
 
 export const editProductAdmin = (product) => async (dispatch, getState) => {
     try {
-        dispatch({ type: PRODUCT_EDIT_REQ })
+        dispatch({ type: constants.PRODUCT_EDIT_REQ })
 
         const { userLogin: { userInfo } } = getState()
 
@@ -100,13 +100,13 @@ export const editProductAdmin = (product) => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.put(`/api/products/${product._id}`, product, config)
-        dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data })
+        dispatch({ type: constants.PRODUCT_EDIT_SUCCESS, payload: data })
 
 
         localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
-            type: PRODUCT_EDIT_ERR,
+            type: constants.PRODUCT_EDIT_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message
