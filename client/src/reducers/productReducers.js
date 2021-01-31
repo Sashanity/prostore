@@ -58,7 +58,7 @@ export const createProductReducer = (state = {}, action) => {
 export const productEditReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case constants.PRODUCT_EDIT_SUCCESS:
-            return { loading: false, success: true }
+            return { loading: false, success: true, product: action.payload }
         case constants.PRODUCT_EDIT_REQ:
             return { loading: true }
         case constants.PRODUCT_EDIT_ERR:
@@ -69,6 +69,22 @@ export const productEditReducer = (state = { product: {} }, action) => {
             return state
     }
 }
+
+export const reviewReducer = (state = {}, action) => {
+    switch (action.type) {
+        case constants.PRODUCT_ADD_REVIEW_SUCCESS:
+            return { loading: false, success: true }
+        case constants.PRODUCT_ADD_REVIEW_REQ:
+            return { loading: true }
+        case constants.PRODUCT_ADD_REVIEW_ERR:
+            return { loading: false, error: action.payload }
+        case constants.PRODUCT_ADD_REVIEW_RESET:
+            return {}
+        default:
+            return state
+    }
+}
+
 
 
 
