@@ -71,6 +71,9 @@ const OrderScreen = (props) => {
     const deliverHandler = () => {
         dispatch(orderDeliver(order))
     }
+
+
+
     return loading
         ? <Progress marginTop={'20%'} />
         : error
@@ -150,13 +153,12 @@ const OrderScreen = (props) => {
                                         <Grid item xs>${order.shippingPrice}</Grid>
                                     </Grid>
                                 </ListItem>
-                                <ListItem>
+                                <ListItem divider>
                                     <Grid container direction='row'>
                                         <Grid item xs>Tax</Grid>
                                         <Grid item xs>${order.taxPrice}</Grid>
                                     </Grid>
                                 </ListItem>
-                                <Divider />
                                 <ListItem>
                                     <Grid container direction='row'>
                                         <Grid item xs>Total</Grid>
@@ -164,17 +166,21 @@ const OrderScreen = (props) => {
                                     </Grid>
                                 </ListItem>
                                 {!order.isPaid && (
-                                    <ListItem>
+                                    <Box mx={2}>
+
                                         {loadingPaid && <Progress />}
                                         {!sdkReady ? (
                                             <Progress />
                                         ) : (
                                                 <PayPalButton
+                                                    style={{ color: 'silver' }}
+
                                                     amount={order.totalPrice}
                                                     onSuccess={successPaymentHandler}
                                                 />
                                             )}
-                                    </ListItem>
+
+                                    </Box>
                                 )}
                                 {loadingDelivery && <Progress />}
                                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
@@ -189,13 +195,15 @@ const OrderScreen = (props) => {
 
                             </List>
                         </Card>
-                        <Box mt={2}>
-                            <Link to={'/'}>
-                                <Button
-                                    fullWidth
-                                    className={classes.button}>Continue Shopping</Button></Link>
-                        </Box>
-
+                        {
+                            window.location.href.indexOf('/edit') === -1 &&
+                            <Box mt={2}>
+                                <Link to={'/'}>
+                                    <Button
+                                        fullWidth
+                                        className={classes.button}>Continue Shopping</Button></Link>
+                            </Box>
+                        }
 
                     </Grid>
 

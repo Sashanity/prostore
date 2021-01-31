@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Card, CardMedia, Divider, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
+import { Button, Card, CardMedia, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
@@ -79,16 +79,16 @@ const ProductScreen = (props) => {
                         </Grid>
                         <Grid item md={3}>
                             <List>
-                                <ListItem><h3>{product.name}</h3></ListItem>
-                                <Divider />
-                                <ListItem>
+                                <ListItem divider><h3>{product.name}</h3></ListItem>
+
+                                <ListItem divider>
                                     <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                                 </ListItem>
-                                <Divider />
-                                <ListItem>
+
+                                <ListItem divider>
                                     Price: ${product.price}
                                 </ListItem>
-                                <Divider />
+
                                 <ListItem>
                                     Description: {product.description}
                                 </ListItem>
@@ -97,22 +97,21 @@ const ProductScreen = (props) => {
                         <Grid item md={3}>
                             <Card>
                                 <List >
-                                    <ListItem>
+                                    <ListItem divider>
                                         <Grid container direction='row' justify='space-between' alignItems='center'>
                                             <Grid item xs>Price:</Grid>
                                             <Grid item xs><strong>${product.price}</strong></Grid>
                                         </Grid>
                                     </ListItem>
-                                    <Divider />
-                                    <ListItem>
+
+                                    <ListItem divider>
                                         <Grid container direction='row' justify='space-between' alignItems='center'>
                                             <Grid item xs>Status:</Grid>
                                             <Grid item xs>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Grid>
                                         </Grid>
                                     </ListItem>
-                                    <Divider />
                                     {product.countInStock > 0 && (
-                                        <ListItem>
+                                        <ListItem divider>
                                             <Grid container direction='row' justify='space-between' alignItems='center'>
                                                 <Grid item xs>Quantity:</Grid>
 
@@ -140,7 +139,7 @@ const ProductScreen = (props) => {
                                         </ListItem>
                                     )}
 
-                                    <Divider />
+
                                     <ListItem>
                                         <Button
                                             fullWidth

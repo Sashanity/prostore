@@ -30,12 +30,12 @@ export default function Header() {
 
     const handleClickUser = (event) => {
         setAnchorEl(event.currentTarget);
-        console.log('NAVLINK CLICKED')
+        // console.log('NAVLINK CLICKED')
     }
 
     const handleClickAdmin = (event) => {
         setAnchorElA(event.currentTarget);
-        console.log('NAVLINK ADMIN CLICKED')
+        // console.log('NAVLINK ADMIN CLICKED')
     }
 
     const handleClose = () => {
