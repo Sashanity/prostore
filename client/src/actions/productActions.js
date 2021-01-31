@@ -101,9 +101,34 @@ export const editProductAdmin = (product) => async (dispatch, getState) => {
         }
         const { data } = await axios.put(`/api/products/${product._id}`, product, config)
         dispatch({ type: constants.PRODUCT_EDIT_SUCCESS, payload: data })
+        dispatch({ type: constants.PRODUCT_SUCCESS, payload: data })
 
+    } catch (error) {
+        dispatch({
+            type: constants.PRODUCT_EDIT_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
+export const addReview = (productID, review) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: constants.PRODUCT_ADD_REVIEW_REQ })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        await axios.post(`/api/products/${productID}/reviews`, review, config)
+        dispatch({ type: constants.PRODUCT_ADD_REVIEW_SUCCESS })
+        // dispatch({ type: constants.PRODUCT_SUCCESS })
+
     } catch (error) {
         dispatch({
             type: constants.PRODUCT_EDIT_ERR,
