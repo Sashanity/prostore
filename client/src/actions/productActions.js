@@ -115,6 +115,7 @@ export const editProductAdmin = (product) => async (dispatch, getState) => {
 
 export const addReview = (productID, review) => async (dispatch, getState) => {
     try {
+        console.log('adREview triggered')
         dispatch({ type: constants.PRODUCT_ADD_REVIEW_REQ })
 
         const { userLogin: { userInfo } } = getState()
@@ -131,7 +132,7 @@ export const addReview = (productID, review) => async (dispatch, getState) => {
 
     } catch (error) {
         dispatch({
-            type: constants.PRODUCT_EDIT_ERR,
+            type: constants.PRODUCT_ADD_REVIEW_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

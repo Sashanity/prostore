@@ -78,7 +78,7 @@ export const reviewReducer = (state = {}, action) => {
             return { loading: true }
         case constants.PRODUCT_ADD_REVIEW_ERR:
             return { loading: false, error: action.payload }
-        case constants.PRODUCT_ADD_REVIEW_RESET:
+        case constants.PRODUCT_REVIEW_RESET:
             return {}
         default:
             return state

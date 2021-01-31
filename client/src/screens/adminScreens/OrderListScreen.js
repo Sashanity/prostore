@@ -41,7 +41,7 @@ const OrderListScreen = (props) => {
             : error
                 ? <AlertMessage sev={'error'}>{error}</AlertMessage>
                 : <Container>
-                    <h1>Users</h1>
+                    <h1>Orders</h1>
                     <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>

@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Button, Card, CardMedia, FormControl, Grid, List, ListItem, ListItemText, makeStyles, MenuItem, Select, Typography, } from '@material-ui/core'
+import { Box, Button, Card, CardMedia, FormControl, FormControlLabel, FormGroup, Grid, List, ListItem, ListItemSecondaryAction, ListItemText, makeStyles, MenuItem, Select, TextareaAutosize, Typography, } from '@material-ui/core'
 
 import { Link } from 'react-router-dom'
 // import Rating from '../components/Rating'
 
 import Progress from '../components/Progress'
-import { getProduct, createProduct } from '../actions/productActions'
+import { getProduct, createProduct, addReview } from '../actions/productActions'
 import AlertMessage from '../components/AlertMessage'
 import { useStyles } from '../styles'
-import { PRODUCT_ADD_REVIEW_RESET } from '../consts/productsConsts'
+import { PRODUCT_REVIEW_RESET } from '../consts/productsConsts'
 import { Rating } from '@material-ui/lab'
 
 const ProductScreen = (props) => {
     const { match, history } = props
     const classes = useStyles()
     const [qty, setQty] = useState(1)
+    const [review, setReview] = useState(false)
     const [rating, setRating] = useState('')
     const [comment, setComment] = useState('')
+    // const [value, setValue] = useState(null);
 
 
     // const [product, setProduct] = useState([])
@@ -31,13 +33,17 @@ const ProductScreen = (props) => {
 
 
     useEffect(() => {
-        // const fetchProduct = async () => {
-        //     const { data } = await axios.get(`/api/products/${match.params.id}`)
-        //     setProduct(data)
-        // }
-        // fetchProduct()
+        if (successReview) {
+            alert('Your review submitted')
+            setComment('')
+            setRating(0)
+            setReview(false)
+            dispatch({ type: PRODUCT_REVIEW_RESET })
+        }
+
+
         dispatch(getProduct(match.params.id))
-    }, [dispatch, match])
+    }, [dispatch, match, successReview])
 
     const handleAddToCart = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -45,7 +51,22 @@ const ProductScreen = (props) => {
 
     const handleChangeQty = (event) => {
         setQty(event.target.value)
+    }
 
+    const handleWriteToggle = () => {
+        if (!userInfo)
+            history.push('/signin')
+        setReview((review) => !review)
+    }
+    const submitReviewHandler = (e) => {
+        e.preventDefault()
+        if (!userInfo)
+            history.push('/signin')
+        console.log('trying to submit')
+        console.log('rating:', rating)
+        console.log('comment:', comment)
+
+        dispatch(addReview(match.params.id, { rating, comment }))
     }
 
     return (
@@ -68,8 +89,8 @@ const ProductScreen = (props) => {
                                     <ListItem divider><h3>{product.name}</h3></ListItem>
                                     <ListItem divider>
                                         {/* <Rating value={product.rating} text={`${product.numReviews} reviews`} /> */}
-                                        <Rating size="small" value={product.rating} readOnly />
-                                        <p>{product.numReviews} reviews</p>
+                                        <Rating size="small" value={product.rating} readOnly precision={0.5} />
+                                        <p>{product.numReviews} {product.numReviews === 1 ? 'review' : 'reviews'}</p>
                                     </ListItem>
 
                                     <ListItem divider>
@@ -142,31 +163,80 @@ const ProductScreen = (props) => {
                         </Grid>
                         <Grid container >
                             <Grid item md={6}>
-                                <h2>REVIEWS</h2>
+                                <h2>Customer Reviews</h2>
                                 {product.numReviews === 0 && <AlertMessage sev={'info'}>No reviews yet</AlertMessage>}
                                 <List>
                                     {product.reviews.map((review) => (
 
-                                        <ListItem key={review._id}>
-
-
-
-
-
-
+                                        <ListItem key={review._id} divider>
 
                                             <ListItemText
+                                                primary={
+                                                    <p>
+                                                        <strong>{review.name} </strong>
+                                                        <Rating size='small' value={review.rating} readOnly />
+                                                        {review.createdAt.substring(0, 10)}
+                                                    </p>
+                                                }
                                                 secondary={
-                                                    review.comment}
+                                                    review.comment
+                                                }
                                             />
-
                                         </ListItem>
-
                                     ))}
                                     <ListItem>
-                                        <h2>Add review</h2>
-
+                                        <h3>Review this product</h3>
+                                        <ListItemSecondaryAction>
+                                            <Button
+                                                fullWidth
+                                                className={classes.button}
+                                                onClick={handleWriteToggle}
+                                            >Write a review
+                                            </Button>
+                                        </ListItemSecondaryAction>
                                     </ListItem>
+                                    {review && (
+                                        <Grid container spacing={2} >
+                                            <Grid item xs={12} >
+                                                <FormGroup>
+                                                    <FormControlLabel
+                                                        label='overall rating'
+                                                        labelPlacement='start'
+                                                        control={
+                                                            <Rating
+                                                                size='small'
+                                                                value={rating}
+                                                                onChange={(e) => setRating(e.target.value)}
+
+                                                            />}
+                                                    />
+                                                    <TextareaAutosize
+                                                        rowsMin={4}
+                                                        rowsMax={4}
+                                                        placeholder='Add a review comment'
+                                                        onChange={(e) => setComment(e.target.value)}
+                                                    />
+
+                                                </FormGroup>
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                {loadingReview && <Progress />}
+                                                {errorReview && <AlertMessage sev='error'>{errorReview}</AlertMessage>}
+                                                <Button
+                                                    type='submit'
+                                                    className={classes.button}
+                                                    onClick={submitReviewHandler}
+                                                >
+                                                    Submit
+                                                </Button>
+
+                                            </Grid>
+
+
+                                        </Grid>
+
+                                    )}
+
                                 </List>
                             </Grid>
 
