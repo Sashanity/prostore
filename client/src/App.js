@@ -18,13 +18,15 @@ import UserEditScreen from './screens/adminScreens/UserEditScreen'
 import ProductsListScreen from './screens/adminScreens/ProductsListScreen'
 import ProductEditScreen from './screens/adminScreens/ProductEditScreen'
 import OrderListScreen from './screens/adminScreens/OrderListScreen'
+import { useStyles } from './styles'
 
 function App() {
+  const classes = useStyles()
   return (
     <Router>
       <Header />
       <main>
-        <Container>
+        <Container className={classes.root}>
           <Route path='/' component={HomeScreen} exact />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
