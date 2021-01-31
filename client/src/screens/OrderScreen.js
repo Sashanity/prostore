@@ -13,7 +13,7 @@ import { getOrderInfo, orderPay, orderDeliver } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../consts/orderConsts'
 
 const OrderScreen = (props) => {
-    const { match } = props
+    const { match, history } = props
     const classes = useStyles()
     const [sdkReady, setSdkReady] = useState(false)
     const orderID = match.params.id
@@ -34,6 +34,9 @@ const OrderScreen = (props) => {
     }
     const dispatch = useDispatch()
     useEffect(() => {
+        if (!userInfo) {
+            history.push('/signin')
+        }
         const createPayPalScript = async () => {
             const { data: clientID } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
@@ -60,7 +63,7 @@ const OrderScreen = (props) => {
             }
         }
 
-    }, [dispatch, order, successPaid, orderID, successDelivery])
+    }, [dispatch, order, successPaid, orderID, successDelivery, userInfo, history])
 
 
     const successPaymentHandler = (paymentResult) => {
@@ -183,7 +186,7 @@ const OrderScreen = (props) => {
                                     </Box>
                                 )}
                                 {loadingDelivery && <Progress />}
-                                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                                     <ListItem>
                                         <Button
                                             className={classes.button}
