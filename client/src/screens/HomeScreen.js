@@ -9,9 +9,11 @@ import Progress from '../components/Progress'
 import AlertMessage from '../components/AlertMessage'
 
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
     // // acts as constructor in func components
     // const [products, setProducts] = useState([])
+    const { match } = props
+    const keyword = match.params.keyword
 
     const dispatch = useDispatch()
     // state.productList comes form the reducer 
@@ -23,9 +25,9 @@ const HomeScreen = () => {
         //     setProducts(data)
         // }
         // fetchProducts()
-        dispatch(getProducts())
+        dispatch(getProducts(keyword))
 
-    }, [dispatch])
+    }, [dispatch, keyword])
     return (
         <>
             <h1>LATEST PRODUCTS</h1>

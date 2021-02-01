@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, Route } from 'react-router-dom'
 
 import { AppBar, Toolbar, Container, Typography, makeStyles, Box, Button, Menu, MenuItem, Fade, Popper, Grow, ClickAwayListener, Paper, MenuList } from '@material-ui/core'
 import { logoutUser } from '../actions/userActions';
+import SearchBar from './SearchBar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
-    const classes = useStyles();
+    const classes = useStyles()
+
 
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
@@ -93,6 +95,8 @@ export default function Header() {
                 <Container>
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}><NavLink activeStyle={{ color: 'white' }} to='/'>PROSTORE</NavLink></Typography>
+
+                        <Route render={({ history }) => <SearchBar history={history} />} />
                         <Link to='/cart' style={{ marginRight: 10 }}><i className='fas fa-shopping-cart'></i>CART</Link>
                         {userInfo
                             ? (

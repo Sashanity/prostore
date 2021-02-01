@@ -8,8 +8,16 @@ import Product from '../models/productModel.js'
 @ access Public
 */
 export const getProducts = asyncHandler(async (req, res) => {
-    // find all products
-    const products = await Product.find({})
+    const keyword = req.query.keyword
+        ? {
+            name: {
+                $regex: req.query.keyword,
+                $options: 'i' // case insensetive
+            }
+        }
+        : {}
+    // find products
+    const products = await Product.find({ ...keyword })
     // throw new Error('Some Error')
     res.json(products)
 })

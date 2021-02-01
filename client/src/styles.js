@@ -32,6 +32,7 @@ export const useStyles = makeStyles((theme) => ({
             backgroundColor: "#424242"
         }
     },
+
     image: {
         height: 0,
         paddingTop: '80%'
