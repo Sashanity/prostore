@@ -14,6 +14,7 @@ const HomeScreen = (props) => {
     // const [products, setProducts] = useState([])
     const { match } = props
     const keyword = match.params.keyword
+    const pageNum = match.params.pageNum || 1
 
     const dispatch = useDispatch()
     // state.productList comes form the reducer 
@@ -25,9 +26,9 @@ const HomeScreen = (props) => {
         //     setProducts(data)
         // }
         // fetchProducts()
-        dispatch(getProducts(keyword))
+        dispatch(getProducts(keyword, pageNum))
 
-    }, [dispatch, keyword])
+    }, [dispatch, keyword, pageNum])
     return (
         <>
             <h1>LATEST PRODUCTS</h1>

@@ -16,10 +16,15 @@ export const getProducts = asyncHandler(async (req, res) => {
             }
         }
         : {}
+
+    const page = Number(req.query.pageNum) || 1
+    const pageSize = 4
+
+    const countProducts = Product.countDocuments({ ...keyword })
     // find products
-    const products = await Product.find({ ...keyword })
+    const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // throw new Error('Some Error')
-    res.json(products)
+    res.json({ products, page, pages: Math.ceil(countProducts / pageSize) })
 })
 
 /*
