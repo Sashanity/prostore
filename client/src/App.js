@@ -46,9 +46,6 @@ function App() {
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNum' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNum' component={HomeScreen} exact />
-
-          <Route path='/top' component={CustomCarousel} />
-
         </Container>
       </main>
       <Footer />

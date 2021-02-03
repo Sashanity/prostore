@@ -33,8 +33,13 @@ const HomeScreen = (props) => {
 
     }, [dispatch, keyword, pageNum])
     return (
-        <> {!keyword && <CustomCarousel />}
-            <h1>LATEST PRODUCTS</h1>
+        <>
+            {!keyword &&
+                <>
+                    <CustomCarousel />
+                    <h1>LATEST PRODUCTS</h1>
+                </>}
+
             {loading
                 ? <Progress marginTop={'20%'} />
                 : error
