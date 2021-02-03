@@ -8,6 +8,7 @@ import { getProducts } from '../actions/productActions'
 import Progress from '../components/Progress'
 import AlertMessage from '../components/AlertMessage'
 import CustomPagination from '../components/CustomPagination'
+import CustomCarousel from '../components/CustomCarousel'
 
 
 const HomeScreen = (props) => {
@@ -32,7 +33,7 @@ const HomeScreen = (props) => {
 
     }, [dispatch, keyword, pageNum])
     return (
-        <>
+        <> {!keyword && <CustomCarousel />}
             <h1>LATEST PRODUCTS</h1>
             {loading
                 ? <Progress marginTop={'20%'} />

@@ -19,6 +19,7 @@ import ProductsListScreen from './screens/adminScreens/ProductsListScreen'
 import ProductEditScreen from './screens/adminScreens/ProductEditScreen'
 import OrderListScreen from './screens/adminScreens/OrderListScreen'
 import { useStyles } from './styles'
+import CustomCarousel from './components/CustomCarousel'
 
 function App() {
   const classes = useStyles()
@@ -45,6 +46,9 @@ function App() {
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNum' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNum' component={HomeScreen} exact />
+
+          <Route path='/top' component={CustomCarousel} />
+
         </Container>
       </main>
       <Footer />

@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { productListReducer, productReducer, productDeleteReducer, createProductReducer, productEditReducer, reviewReducer } from './reducers/productReducers';
+import { productListReducer, productReducer, productDeleteReducer, createProductReducer, productEditReducer, reviewReducer, productTopListReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers'
 import { loginUserReducer, signupReducer, getProfileReducer, updateProfileReducer, userListReducer, userDeleteReducer, userEditReducer } from './reducers/userReducers'
 import { createOrderReducer, orderInfoReducer, updateOrderPayReducer, orderListReducer, orderAdminListReducer, orderDeliveryReducer } from './reducers/orderReducers'
@@ -26,7 +26,8 @@ const reducer = combineReducers({
     productEdit: productEditReducer,
     orderAdminList: orderAdminListReducer,
     orderDelivery: orderDeliveryReducer,
-    productReview: reviewReducer
+    productReview: reviewReducer,
+    productTop: productTopListReducer
 
 });
 // fish out array of items in the cart and user info from the local storage

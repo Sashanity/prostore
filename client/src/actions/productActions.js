@@ -139,3 +139,20 @@ export const addReview = (productID, review) => async (dispatch, getState) => {
         })
     }
 }
+
+
+export const getTopProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: constants.PRODUCT_TOP_LIST_REQ })
+        const { data } = await axios.get(`/api/products/top`,)
+        dispatch({ type: constants.PRODUCT_TOP_LIST_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: constants.PRODUCT_TOP_LIST_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}

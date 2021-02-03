@@ -90,6 +90,22 @@ export const reviewReducer = (state = {}, action) => {
     }
 }
 
+export const productTopListReducer = (state = { products: [] }, action) => {
+    switch (action.type) {
+        case constants.PRODUCT_TOP_LIST_SUCCESS:
+            return {
+                loading: false,
+                products: action.payload
+            }
+        case constants.PRODUCT_TOP_LIST_REQ:
+            return { loading: true, products: [] }
+        case constants.PRODUCT_TOP_LIST_ERR:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
 
 
 
