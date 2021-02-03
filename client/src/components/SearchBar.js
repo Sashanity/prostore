@@ -16,6 +16,16 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid #ced4da',
         padding: '5px 5px',
     },
+    buttonSearch: {
+        // background: '#212121',
+        borderRadius: 3,
+        border: 1,
+        color: '#00E676',
+        "&:hover": {
+            color: 'white',
+            background: '#00E676',
+        }
+    },
 }));
 const SearchBar = (props) => {
     const classes = useStyles()
@@ -42,7 +52,7 @@ const SearchBar = (props) => {
             <Button
                 type='submit'
                 size="small"
-                style={{ color: '#00E676' }}
+                className={classes.buttonSearch}
             >
                 Search</Button>
         </form>
