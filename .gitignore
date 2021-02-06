@@ -3,6 +3,8 @@
 # sample data
 /backend/data
 
+# production
+/client/build
 
 # eslint cache
 .eslintcache
