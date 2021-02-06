@@ -1,27 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import { Link } from 'react-router-dom'
-import { getOrdersList } from '../../actions/orderActions'
 import { useStyles } from '../../styles'
-import Progress from '../../components/Progress';
+
+import { getOrdersList } from '../../actions/orderActions'
+import Progress from '../../components/Progress'
 import AlertMessage from '../../components/AlertMessage'
 
 const OrderListScreen = (props) => {
     const { history } = props
-
-    const classes = useStyles();
-
+    const classes = useStyles()
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const orderAdminList = useSelector(state => state.orderAdminList)
     const { orders, loading, error } = orderAdminList
-    // const userDelete = useSelector(state => state.userDelete)
-    // const { success } = userDelete
 
-    // success as dependency so that screen refreshes on successful delete
     useEffect(() => {
         if (userInfo && userInfo.isAdmin)
             dispatch(getOrdersList())
@@ -30,11 +26,6 @@ const OrderListScreen = (props) => {
         }
     }, [dispatch, userInfo, history])
 
-    // const deleteHandler = (userID) => {
-    //     if (window.confirm('Are you sure')) {
-    //         dispatch(deleteUserById(userID))
-    //     }
-    // }
     return (
         loading
             ? <Progress marginTop={'20%'} />
@@ -78,14 +69,7 @@ const OrderListScreen = (props) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
                 </Container>
-
-
-
-
-
-
     )
 }
 

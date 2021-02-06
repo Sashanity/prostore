@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core'
-
+import { Avatar, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core'
 import { useStyles } from '../../styles'
+
 import { getUserProfile, editUserAdmin } from '../../actions/userActions'
 import AlertMessage from '../../components/AlertMessage'
 import Progress from '../../components/Progress'
 import { USER_EDIT_RESET } from '../../consts/userConsts'
+
 export default function UserEditScreen(props) {
-    const { history, location, match } = props
+    const { history, match } = props
     const userID = match.params.id
-    const classes = useStyles();
-
-
+    const classes = useStyles()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [isAdmin, setIsAdmin] = useState('')
@@ -156,5 +155,5 @@ export default function UserEditScreen(props) {
 
             </Container>
         </>
-    );
+    )
 }

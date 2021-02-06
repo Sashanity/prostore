@@ -1,11 +1,11 @@
 import axios from 'axios'
 import * as constants from '../consts/productsConsts'
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (keyword = '', pageNum = '') => async (dispatch) => {
     try {
         // dispatch ({type, payload})
         dispatch({ type: constants.PRODUCT_LIST_REQ })
-        const { data } = await axios.get(`/api/products`)
+        const { data } = await axios.get(`/api/products?keyword=${keyword}&pageNum=${pageNum}`,)
         dispatch({ type: constants.PRODUCT_LIST_SUCCESS, payload: data })
 
     } catch (error) {
@@ -133,6 +133,23 @@ export const addReview = (productID, review) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: constants.PRODUCT_ADD_REVIEW_ERR,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+
+export const getTopProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: constants.PRODUCT_TOP_LIST_REQ })
+        const { data } = await axios.get(`/api/products/top`,)
+        dispatch({ type: constants.PRODUCT_TOP_LIST_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: constants.PRODUCT_TOP_LIST_ERR,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

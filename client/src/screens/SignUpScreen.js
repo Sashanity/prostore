@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { Avatar, Button, Container, CssBaseline, Grid, TextField, Typography } from '@material-ui/core'
 
 import { useStyles } from '../styles'
-import { signupUser } from '../actions/userActions';
-import AlertMessage from '../components/AlertMessage';
-import Progress from '../components/Progress';
+import { signupUser } from '../actions/userActions'
+import AlertMessage from '../components/AlertMessage'
+import Progress from '../components/Progress'
 
 export default function SignUp(props) {
     const { history, location } = props
 
-    const classes = useStyles();
+    const classes = useStyles()
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [nameF, setNameF] = useState('')
     const [nameL, setNameL] = useState('')
@@ -146,5 +146,5 @@ export default function SignUp(props) {
             </div>
 
         </Container>
-    );
+    )
 }

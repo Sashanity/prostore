@@ -32,9 +32,15 @@ export const useStyles = makeStyles((theme) => ({
             backgroundColor: "#424242"
         }
     },
+
     image: {
         height: 0,
         paddingTop: '80%'
+    },
+    imageCarousel: {
+        height: 200,
+        maxWidth: 300,
+
     },
     table: {
         minWidth: 650,

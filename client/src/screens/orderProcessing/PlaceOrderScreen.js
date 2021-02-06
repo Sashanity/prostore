@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import AlertMessage from '../../components/AlertMessage'
 import { Link } from 'react-router-dom'
+
 import { Box, Button, Card, CardMedia, Container, CssBaseline, Divider, Grid, List, ListItem } from '@material-ui/core'
-
-import CheckoutSteps from '../../components/CheckoutSteps'
 import { useStyles } from '../../styles'
-import { createOrder } from '../../actions/orderActions'
 
+import AlertMessage from '../../components/AlertMessage'
+import CheckoutSteps from '../../components/CheckoutSteps'
+import { createOrder } from '../../actions/orderActions'
 
 const PlaceOrderScreen = (props) => {
     const { history } = props
@@ -131,17 +131,11 @@ const PlaceOrderScreen = (props) => {
                                     onClick={placeOrderHandler}
                                 >Place Order</Button>
                             </ListItem>
-
                         </List>
                     </Card>
-
                 </Grid>
-
             </Grid>
-
         </Container>
-
-
     )
 }
 

@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import { Link } from 'react-router-dom'
-import { getUserList, deleteUserById } from '../../actions/userActions'
 import { useStyles } from '../../styles'
-import Progress from '../../components/Progress';
-import AlertMessage from '../../components/AlertMessage';
+
+import { getUserList, deleteUserById } from '../../actions/userActions'
+import Progress from '../../components/Progress'
+import AlertMessage from '../../components/AlertMessage'
+
 const UserListScreen = (props) => {
     const { history } = props
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
@@ -78,14 +80,7 @@ const UserListScreen = (props) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
                 </Container>
-
-
-
-
-
-
     )
 }
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { getProducts, getProduct, createProductReview } from '../handlers/productRoutesHandlers.js'
+import { getProducts, getProduct, createProductReview, getTopProducts } from '../handlers/productRoutesHandlers.js'
 import { deleteProductById, createNewProduct, updateProduct } from '../handlers/adminAccessRoutesHandlers/adminProductsRoutesHandlers.js'
 import { auth } from '../middleware/auth.js'
 import { adminAuth } from '../middleware/adminAuth.js'
@@ -11,6 +11,8 @@ const router = express.Router()
 router.route('/')
     .get(getProducts)
     .post(auth, adminAuth, createNewProduct)
+
+router.get('/top', getTopProducts)
 
 router.route('/:id')
     .get(getProduct)

@@ -3,7 +3,12 @@ import * as constants from '../consts/productsConsts'
 export const productListReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case constants.PRODUCT_LIST_SUCCESS:
-            return { loading: false, products: action.payload }
+            return {
+                loading: false,
+                products: action.payload.products,
+                page: action.payload.page,
+                pages: action.payload.pages
+            }
         case constants.PRODUCT_LIST_REQ:
             return { loading: true, products: [] }
         case constants.PRODUCT_LIST_ERR:
@@ -80,6 +85,22 @@ export const reviewReducer = (state = {}, action) => {
             return { loading: false, error: action.payload }
         case constants.PRODUCT_REVIEW_RESET:
             return {}
+        default:
+            return state
+    }
+}
+
+export const productTopListReducer = (state = { products: [] }, action) => {
+    switch (action.type) {
+        case constants.PRODUCT_TOP_LIST_SUCCESS:
+            return {
+                loading: false,
+                products: action.payload
+            }
+        case constants.PRODUCT_TOP_LIST_REQ:
+            return { loading: true, products: [] }
+        case constants.PRODUCT_TOP_LIST_ERR:
+            return { loading: false, error: action.payload }
         default:
             return state
     }

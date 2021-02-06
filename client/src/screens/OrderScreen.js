@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { PayPalButton } from "react-paypal-button-v2"
-
 import AlertMessage from '../components/AlertMessage'
-import { Link } from 'react-router-dom'
+
 import { Box, Button, Card, CardMedia, Container, CssBaseline, Divider, Grid, List, ListItem } from '@material-ui/core'
 
-import Progress from '../components/Progress';
+import Progress from '../components/Progress'
 import { useStyles } from '../styles'
 import { getOrderInfo, orderPay, orderDeliver } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../consts/orderConsts'
@@ -65,7 +65,6 @@ const OrderScreen = (props) => {
 
     }, [dispatch, order, successPaid, orderID, successDelivery, userInfo, history])
 
-
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(orderPay(orderID, paymentResult))
@@ -74,8 +73,6 @@ const OrderScreen = (props) => {
     const deliverHandler = () => {
         dispatch(orderDeliver(order))
     }
-
-
 
     return loading
         ? <Progress marginTop={'20%'} />

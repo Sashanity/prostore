@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Avatar, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core'
 import { useStyles } from '../styles'
+
 import { loginUser } from '../actions/userActions'
 import AlertMessage from '../components/AlertMessage'
 import Progress from '../components/Progress'
@@ -11,9 +12,9 @@ import Progress from '../components/Progress'
 export default function SignIn(props) {
     const { history, location } = props
 
-    const classes = useStyles();
+    const classes = useStyles()
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     // redirect to see if user logged in or not
@@ -97,7 +98,6 @@ export default function SignIn(props) {
                     </Grid>
                 </form>
             </div>
-
         </Container>
-    );
+    )
 }
