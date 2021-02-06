@@ -137,38 +137,42 @@ export default function ProfileScreen(props) {
                     </Button>
                     </form>
                 </div>
-
             </Grid>
-
             <Grid item md={9}>
                 <div className={classes.paper}>
                     <Typography component="h2" variant="h5">Your Orders</Typography>
-                    <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell align="right">DATE</TableCell>
-                                    <TableCell align="right">TOTAL</TableCell>
-                                    <TableCell align="right">DELIVERED</TableCell>
-                                    <TableCell align="right"></TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {orders.map((order) => (
-                                    <TableRow key={order._id}>
-                                        <TableCell component="th" scope="row">{order._id}</TableCell>
-                                        <TableCell align="right">{order.createdAt.substring(0, 10)}</TableCell>
-                                        <TableCell align="right">{order.totalPrice}</TableCell>
-                                        <TableCell align="right">{order.isPaid ? order.paidAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
-                                        <TableCell align="right">{order.isDelivered ? order.deliveredAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
-                                        <TableCell align="right"><Link to={`/order/${order._id}`}>Details</Link></TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    {loadingListOrders
+                        ? <Progress />
+                        : errorListOrders
+                            ? <AlertMessage sev='error'>{errorListOrders}</AlertMessage>
+                            : (
+                                <TableContainer component={Paper}>
+                                    <Table className={classes.table} aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>ID</TableCell>
+                                                <TableCell align="right">DATE</TableCell>
+                                                <TableCell align="right">TOTAL</TableCell>
+                                                <TableCell align="right">DELIVERED</TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell></TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {orders.map((order) => (
+                                                <TableRow key={order._id}>
+                                                    <TableCell component="th" scope="row">{order._id}</TableCell>
+                                                    <TableCell align="right">{order.createdAt.substring(0, 10)}</TableCell>
+                                                    <TableCell align="right">{order.totalPrice}</TableCell>
+                                                    <TableCell align="right">{order.isPaid ? order.paidAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
+                                                    <TableCell align="right">{order.isDelivered ? order.deliveredAt.substring(0, 10) : (<i className='fas fa-times' styles={{ color: 'red' }} > </i>)}</TableCell>
+                                                    <TableCell align="right"><Link to={`/order/${order._id}`}>Details</Link></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            )}
                 </div>
             </Grid>
         </Grid>
