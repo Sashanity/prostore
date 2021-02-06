@@ -40,12 +40,14 @@ function App() {
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/admin/users' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-          <Route path='/admin/products' component={ProductsListScreen} />
+          <Route path='/admin/products' component={ProductsListScreen} exact />
+          <Route path='/admin/products/:pageNum' component={ProductsListScreen} exact />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/orders' component={OrderListScreen} />
           <Route path='/search/:keyword' component={HomeScreen} exact />
-          <Route path='/page/:pageNum' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNum' component={HomeScreen} exact />
+          <Route path='/page/:pageNum' component={HomeScreen} exact />
+
         </Container>
       </main>
       <Footer />

@@ -8,16 +8,18 @@ import { useStyles } from '../../styles'
 import Progress from '../../components/Progress';
 import AlertMessage from '../../components/AlertMessage';
 import { PRODUCT_CREATE_RESET } from '../../consts/productsConsts'
+import CustomPagination from '../../components/CustomPagination';
 
 const ProductsListScreen = (props) => {
-    const { history } = props
+    const { history, match } = props
+    const pageNum = match.params.pageNum || 1
 
     const classes = useStyles()
 
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
-    const { products, loading, error } = productList
+    const { products, loading, error, page, pages } = productList
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const productDelete = useSelector(state => state.productDelete)
@@ -35,9 +37,9 @@ const ProductsListScreen = (props) => {
         if (successCreate) {
             history.push(`/admin/product/${newProduct._id}/edit`)
         } else {
-            dispatch(getProducts())
+            dispatch(getProducts('', pageNum))
         }
-    }, [dispatch, userInfo, history, successDelete, successCreate, newProduct])
+    }, [dispatch, userInfo, history, successDelete, successCreate, newProduct, pageNum])
 
     const deleteHandler = (productID) => {
         if (window.confirm('Are you sure')) {
@@ -113,6 +115,12 @@ const ProductsListScreen = (props) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <CustomPagination
+                        pages={pages}
+                        page={page}
+                        history={history}
+                        isAdmin={userInfo.isAdmin}
+                    />
 
                 </Container>
     )
