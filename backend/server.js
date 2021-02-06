@@ -23,9 +23,9 @@ app.use(express.json());
 // log routes in dev mode
 process.env.NODE_ENV === 'development' && app.use(morgan('dev'))
 
-app.get('/', (req, res) => {
-    res.send('Hi, api is runnning :)')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hi, api is runnning :)')
+// })
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
 app.use('/api/products', productRoutes)
@@ -33,9 +33,19 @@ app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 
-
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/client/build')))
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    )
+} else {
+    app.get('/', (req, res) => {
+        res.send('Hi, api is runnning :)')
+    })
+}
 
 app.use(notFound)
 app.use(errHandler)
