@@ -171,7 +171,6 @@ export default function ProfileScreen(props) {
                     </TableContainer>
                 </div>
             </Grid>
-
         </Grid>
 
     );

@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import { Link } from 'react-router-dom'
-import { getProducts, deleteProduct, createProduct } from '../../actions/productActions'
 import { useStyles } from '../../styles'
-import Progress from '../../components/Progress';
-import AlertMessage from '../../components/AlertMessage';
+
+import { getProducts, deleteProduct, createProduct } from '../../actions/productActions'
+import Progress from '../../components/Progress'
+import AlertMessage from '../../components/AlertMessage'
 import { PRODUCT_CREATE_RESET } from '../../consts/productsConsts'
-import CustomPagination from '../../components/CustomPagination';
+import CustomPagination from '../../components/CustomPagination'
 
 const ProductsListScreen = (props) => {
     const { history, match } = props
     const pageNum = match.params.pageNum || 1
 
     const classes = useStyles()
-
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)

@@ -1,7 +1,8 @@
-import { Box, Button, Card, CardMedia, Divider, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+import { Box, Button, Card, CardMedia, Divider, FormControl, Grid, List, ListItem, makeStyles, MenuItem, Select } from '@material-ui/core'
 
 import { addToCart, removeFromCart } from '../../actions/cartActions'
 import AlertMessage from '../../components/AlertMessage'
@@ -26,15 +27,12 @@ const useStyles = makeStyles(() => ({
         }
     },
 }
-));
+))
 
 const CartScreen = (props) => {
     const { history, match, location } = props
-    const classes = useStyles();
+    const classes = useStyles()
     const pID = match.params.id
-
-    // const qty = location.search
-    // console.log('qty=', qty)
 
     // qty=# get the # from the link 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1
@@ -109,8 +107,6 @@ const CartScreen = (props) => {
                                     </Box>
                                 ))
                             }
-
-
                         </List>
                 }
             </Grid>
@@ -134,8 +130,6 @@ const CartScreen = (props) => {
                     </List>
                 </Card>
             </Grid>
-
-
         </Grid>
     )
 }

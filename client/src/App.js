@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+
 import Container from '@material-ui/core/Container'
 
 import Header from './components/Header'
@@ -19,7 +20,6 @@ import ProductsListScreen from './screens/adminScreens/ProductsListScreen'
 import ProductEditScreen from './screens/adminScreens/ProductEditScreen'
 import OrderListScreen from './screens/adminScreens/OrderListScreen'
 import { useStyles } from './styles'
-import CustomCarousel from './components/CustomCarousel'
 
 function App() {
   const classes = useStyles()
@@ -29,6 +29,7 @@ function App() {
       <main>
         <Container className={classes.root}>
           <Route path='/' component={HomeScreen} exact />
+          <Route path='/page/:pageNum' component={HomeScreen} exact />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/signin' component={SignIn} />
@@ -46,8 +47,6 @@ function App() {
           <Route path='/admin/orders' component={OrderListScreen} />
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNum' component={HomeScreen} exact />
-          <Route path='/page/:pageNum' component={HomeScreen} exact />
-
         </Container>
       </main>
       <Footer />

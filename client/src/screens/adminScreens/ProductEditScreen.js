@@ -1,18 +1,18 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Input, TextField, Typography } from '@material-ui/core'
-
 import { useStyles } from '../../styles'
+
 import { getProduct, editProductAdmin } from '../../actions/productActions'
 import AlertMessage from '../../components/AlertMessage'
 import Progress from '../../components/Progress'
 import { PRODUCT_EDIT_RESET } from '../../consts/productsConsts'
 
 export default function ProductEditScreen(props) {
-    const { history, location, match } = props
+    const { history, match } = props
     const productID = match.params.id
     const classes = useStyles()
 

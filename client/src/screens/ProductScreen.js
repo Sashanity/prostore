@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Button, Card, CardMedia, FormControl, FormControlLabel, FormGroup, Grid, List, ListItem, ListItemSecondaryAction, ListItemText, makeStyles, MenuItem, Select, TextareaAutosize, Typography, } from '@material-ui/core'
-
 import { Link } from 'react-router-dom'
-// import Rating from '../components/Rating'
+
+import { Button, Card, CardMedia, FormControl, FormControlLabel, FormGroup, Grid, List, ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select, TextareaAutosize } from '@material-ui/core'
+import { Rating } from '@material-ui/lab'
+import { useStyles } from '../styles'
 
 import Progress from '../components/Progress'
-import { getProduct, createProduct, addReview } from '../actions/productActions'
+import { getProduct, addReview } from '../actions/productActions'
 import AlertMessage from '../components/AlertMessage'
-import { useStyles } from '../styles'
 import { PRODUCT_REVIEW_RESET } from '../consts/productsConsts'
-import { Rating } from '@material-ui/lab'
+
 
 const ProductScreen = (props) => {
     const { match, history } = props
@@ -31,7 +31,6 @@ const ProductScreen = (props) => {
     const productReview = useSelector(state => state.productReview)
     const { loading: loadingReview, error: errorReview, success: successReview } = productReview
 
-
     useEffect(() => {
         if (successReview) {
             // alert('Your review submitted')
@@ -40,7 +39,6 @@ const ProductScreen = (props) => {
             setReview(false)
             dispatch({ type: PRODUCT_REVIEW_RESET })
         }
-
 
         dispatch(getProduct(match.params.id))
     }, [dispatch, match, successReview])
@@ -62,10 +60,6 @@ const ProductScreen = (props) => {
         e.preventDefault()
         if (!userInfo)
             history.push('/signin')
-        // console.log('trying to submit')
-        // console.log('rating:', rating)
-        // console.log('comment:', comment)
-
         dispatch(addReview(match.params.id, { rating, comment }))
     }
 
@@ -230,22 +224,14 @@ const ProductScreen = (props) => {
                                                 >
                                                     Submit
                                                 </Button>
-
                                             </Grid>
-
-
                                         </Grid>
-
                                     )}
-
                                 </List>
                             </Grid>
-
                         </Grid>
                     </>
             }
-
-
         </>
     )
 }
